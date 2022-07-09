@@ -1,4 +1,5 @@
 _G.WalkSpeed = 16
+_G.JumpHeight = 85
 
 getgenv().SpamTP = false
 getgenv().RejoinSame = false
@@ -70,7 +71,20 @@ Tab:AddSlider({
 end    
 })
 
-
-OrionLib:Destroy()
+Tab:AddSlider({
+	Name = "JumpPower",
+	Min = 0,
+	Max = 400,
+	Default = 85,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Walkspeed Value Beta",
+	Callback = function(bool)
+	_G.JumpHeight = bool
+	if bool then
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
+	end
+end    
+})
 
 OrionLib:Init()
