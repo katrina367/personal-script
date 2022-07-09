@@ -1,5 +1,6 @@
 _G.WalkSpeed = 16
 _G.JumpHeight = 85
+_G.TeleportStatus = AdaptiveInput
 
 getgenv().SpamTP = false
 getgenv().RejoinSame = false
@@ -90,7 +91,7 @@ Tab:AddToggle({
 		spawn(function()
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = "InsertPlayerHere"
+				local p2 = _G.TeleportStatus
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
 			wait()
 			end
@@ -98,5 +99,18 @@ Tab:AddToggle({
 	end
 end    
 })
+
+
+
+Tab:AddTextbox({
+	Name = "Player:",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(bool)
+	_G.TeleportStatus = bool	
+end	  
+})
+
+
 
 OrionLib:Init()
