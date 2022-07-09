@@ -1,55 +1,44 @@
 _G.WalkSpeed = 16
 _G.JumpHeight = 85
 _G.TeleportStatus = AdaptiveInput
-
-getgenv().SpamTP = false
-getgenv().RejoinSame = false
-getgenv().RejoinDiff = false
+_G.SpamTP = false
+_G.RejoinSame = false
+_G.RejoinDiff = false
+_G.Suicide = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+OrionLib:MakeNotification({
+	Name = "Notification",
+	Content = "Daz Script Hub loading",
+	Image = "rbxassetid://4483345998",
+	Time = 1
+})
 
 local Window = OrionLib:MakeWindow({Name = "Player Teleports", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
-	Name = "LocalPlayer",
+	Name = "Player Settings",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false})
 	
 
-local Section = Tab:AddSection({
-	Name = "Rejoins"
-})
-
-
 Tab:AddButton({
-	Name = "[NOT WORKING]Rejoin Same Server",
+	Name = "Kill Pllayer",
 	Callback = function(bool)
-		getgenv().RejoinSame = bool
-		if bool then
-		game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
-	end
-  end    
+      	_G.Suicide = bool
+if bool then 
+game.Players.LocalPlayer.Character.Head:Remove()
+end
+  	end    
 })
-
-Tab:AddButton({
-	Name = "[NOT WORKING]Rejoin Different Server",
-	Callback = function(bool)
-	getgenv().RejoinDiff = bool
-	if bool then
-		local tpservice= game:GetService("TeleportService")
-		local plr = game.Players.LocalPlayer
-		tpservice:Teleport(game.PlaceId, plr)
-	end
-end    
-})
-
 
 local Section = Tab:AddSection({
 	Name = "Player Options"
 })
 
 Tab:AddSlider({
-	Name = "Beta",
+	Name = "Walkspeed",
 	Min = 0,
 	Max = 200,
 	Default = 16,
@@ -61,6 +50,111 @@ Tab:AddSlider({
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = bool
 	end
+end    
+})
+
+Tab:AddSlider({
+	Name = "JumpPower",
+	Min = 0,
+	Max = 400,
+	Default = 85,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "How High You Jump",
+	Callback = function(bool)
+	_G.JumpHeight = bool
+	if bool then
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
+	end
+end    
+})
+
+
+local Tab = Window:MakeTab({
+	Name = "Teleports",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+local Section = Tab:AddSection({
+	Name = "Player Teleports"
+})
+
+
+Tab:AddToggle({
+	Name = "Teleport",
+	Default = false,
+	Callback = function(bool)
+	getgenv().SpamTP = bool
+	if bool then
+		spawn(function()
+			while SpamTP == bool do
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = _G.TeleportStatus
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+			wait()
+			end
+		end)
+	end
+end    
+})
+
+Tab:AddTextbox({
+	Name = "Player Teleport Selection:",
+	Default = "Player",
+	TextDisappear = false,
+	Callback = function(bool)
+	_G.TeleportStatus = bool	
+end	  
+})
+
+Tab:AddDropdown({
+	Name = "Manual Teleport WIP",
+	Default = "1",
+	Options = {"1", "2"},
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+
+
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Rejoins"
+})
+
+Tab:AddButton({
+	Name = "[NOT WORKING]Rejoin Same Server",
+	Callback = function(bool)
+		_G.RejoinSame = bool
+		if bool then
+		game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
+	end
+  end    
+})
+
+Tab:AddButton({
+	Name = "[NOT WORKING]Rejoin Different Server",
+	Callback = function(bool)
+	_G.RejoinDiff = bool
+	if bool then
+		local tpservice= game:GetService("TeleportService")
+		local plr = game.Players.LocalPlayer
+		tpservice:Teleport(game.PlaceId, plr)
+	end
+end    
+})
+
+
+
+OrionLib:Init()
 end    
 })
 
