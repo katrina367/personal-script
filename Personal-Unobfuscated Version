@@ -15,7 +15,11 @@ local Tab = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false})
 	
-Tab:AddLabel("Rejoins")
+
+local Section = Tab:AddSection({
+	Name = "Rejoins"
+})
+
 
 Tab:AddButton({
 	Name = "[NOT WORKING]Rejoin Same Server",
@@ -39,7 +43,10 @@ Tab:AddButton({
 end    
 })
 
-Tab:AddLabel("Player Options")
+
+local Section = Tab:AddSection({
+	Name = "Player Options"
+})
 
 Tab:AddSlider({
 	Name = "Beta",
@@ -80,7 +87,11 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddLabel("Teleport Functions")
+
+local Section = Tab:AddSection({
+	Name = "Player Teleports"
+})
+
 
 Tab:AddToggle({
 	Name = "Teleport",
