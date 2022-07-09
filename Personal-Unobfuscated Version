@@ -23,7 +23,7 @@ Tab:AddButton({
   end    
 })
 
-Tab:AddButton2({
+Tab:AddButton({
 	Name = "Rejoin Different Server",
 	Callback = function(bool)
 	getgenv().RejoinDiff = bool
