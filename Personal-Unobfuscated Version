@@ -1,5 +1,3 @@
-—PERSONAL SCRIPT WIP
-
 _G.WalkSpeed = 16
 
 getgenv().SpamTP = false
@@ -43,13 +41,13 @@ Tab:AddToggle({
 	Callback = function(bool)
 	getgenv().SpamTP = bool
 	if bool then
-		spawn(function())
+		spawn(function()
 			while SpamTP == bool do
-			local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-			local p2 = "InsertPlayerHere"
-			p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
-			print(‘Teleport is’, bool)
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = "InsertPlayerHere"
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
 			wait()
+			end
 		end
 	end)
 end    
@@ -68,7 +66,6 @@ Tab:AddSlider({
 	_G.WalkSpeed = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = bool
-		print(‘Current Walkspeed is:’ , bool)
 	end
 end    
 })
