@@ -1,4 +1,10 @@
+—PERSONAL SCRIPT WIP
+
+_G.WalkSpeed = 16
+
 getgenv().SpamTP = false
+getgenv().RejoinSame = false
+getgenv().RejoinDiff = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -12,9 +18,9 @@ local Tab = Window:MakeTab({
 Tab:AddButton({
 	Name = "Rejoin Same Server",
 	Callback = function(bool)
+getgenv().RejoinSame = bool
 if bool then
 game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
-      		print("button pressed")
 end
   	end    
 })
@@ -22,24 +28,31 @@ end
 Tab:AddButton2({
 	Name = "Rejoin Different Server",
 	Callback = function(bool)
+getgenv().RejoinDiff = bool
 if bool then
 local tpservice= game:GetService("TeleportService")
 local plr = game.Players.LocalPlayer
 tpservice:Teleport(game.PlaceId, plr)
-      		print("button pressed")
 end
-  	end    
+end    
 })
 
-Tab:AddButton3({
-	Name = "Player Teleport",
+Tab:AddToggle({
+	Name = "Teleport",
+	Default = false,
 	Callback = function(bool)
+getgenv().SpamTP = bool
 if bool then
+spawn(function())
+while SpamTP == bool do
 local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 local p2 = "InsertPlayerHere"
 p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+print(‘Teleport is’, bool)
+wait()
 end
-  	end    
+end)
+end    
 })
 
 
@@ -52,9 +65,10 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Walkspeed Value Beta",
 	Callback = function(bool)
+_G.WalkSpeed = bool
 if bool then
-game.Players.LocalPlayer.Character.WalkSpeed = bool
-print(bool)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = bool
+print(‘Current Walkspeed is:’ , bool)
 end
 end    
 })
@@ -63,4 +77,3 @@ end
 OrionLib:Destroy()
 
 OrionLib:Init()
-
