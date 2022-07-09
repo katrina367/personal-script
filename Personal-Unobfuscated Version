@@ -191,7 +191,7 @@ Tab:AddToggle({
 	Name = "Teleport",
 	Default = false,
 	Callback = function(bool)
-	getgenv().SpamTP = bool
+	_G.SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
