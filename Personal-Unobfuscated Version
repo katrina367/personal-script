@@ -13,9 +13,11 @@ local Tab = Window:MakeTab({
 	Name = "LocalPlayer",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false})
+	
+Tab:AddLabel("Rejoins")
 
 Tab:AddButton({
-	Name = "Rejoin Same Server",
+	Name = "[NOT WORKING]Rejoin Same Server",
 	Callback = function(bool)
 		getgenv().RejoinSame = bool
 		if bool then
@@ -25,7 +27,7 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "Rejoin Different Server",
+	Name = "[NOT WORKING]Rejoin Different Server",
 	Callback = function(bool)
 	getgenv().RejoinDiff = bool
 	if bool then
@@ -36,24 +38,7 @@ Tab:AddButton({
 end    
 })
 
-Tab:AddToggle({
-	Name = "Teleport",
-	Default = false,
-	Callback = function(bool)
-	getgenv().SpamTP = bool
-	if bool then
-		spawn(function()
-			while SpamTP == bool do
-				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = "InsertPlayerHere"
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
-			wait()
-			end
-		end
-	end)
-end    
-})
-
+Tab:AddLabel("Player Options")
 
 Tab:AddSlider({
 	Name = "Beta",
@@ -62,7 +47,7 @@ Tab:AddSlider({
 	Default = 16,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Walkspeed Value Beta",
+	ValueName = "Change Your Walkspeed",
 	Callback = function(bool)
 	_G.WalkSpeed = bool
 	if bool then
@@ -78,11 +63,38 @@ Tab:AddSlider({
 	Default = 85,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Walkspeed Value Beta",
+	ValueName = "How High You Jump",
 	Callback = function(bool)
 	_G.JumpHeight = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
+	end
+end    
+})
+
+
+local Tab = Window:MakeTab({
+	Name = "Teleports",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddLabel("Teleport Functions")
+
+Tab:AddToggle({
+	Name = "Teleport",
+	Default = false,
+	Callback = function(bool)
+	getgenv().SpamTP = bool
+	if bool then
+		spawn(function()
+			while SpamTP == bool do
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = "InsertPlayerHere"
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+			wait()
+			end
+		end)
 	end
 end    
 })
