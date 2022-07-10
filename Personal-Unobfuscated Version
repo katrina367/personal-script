@@ -1,10 +1,12 @@
-_G.WalkSpeed = 16
-_G.JumpHeight = 85
-_G.TeleportStatus = AdaptiveInput
-_G.RejoinSame = false
-_G.RejoinDiff = false
-getgenv().Suicide = false
-getgenv().SpamTP = false
+local _senv = getgenv() or _G
+
+_senv.WalkSpeed = 16
+_senv.JumpHeight = 85
+_senv.TeleportStatus = AdaptiveInput
+_senv.RejoinSame = false
+_senv.RejoinDiff = false
+_senv.Suicide = false
+_senv.SpamTP = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -12,7 +14,43 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "Daz Script Hub loading",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 15
+})
+
+wait(2)
+
+OrionLib:MakeNotification({
+	Name = "Notification",
+	Content = "LOADING.",
+	Image = "rbxassetid://4483345998",
+	Time = 15
+})
+
+wait(0.5)
+
+OrionLib:MakeNotification({
+	Name = "Notification",
+	Content = "LOADING..",
+	Image = "rbxassetid://4483345998",
+	Time = 15
+})
+
+wait(0.5)
+
+OrionLib:MakeNotification({
+	Name = "Notification",
+	Content = "LOADING...",
+	Image = "rbxassetid://4483345998",
+	Time = 15
+})
+
+wait(3)
+
+OrionLib:MakeNotification({
+	Name = "Notification",
+	Content = "Made By daz. Special thanks to Jacko.",
+	Image = "rbxassetid://4483345998",
+	Time = 30
 })
 
 local Window = OrionLib:MakeWindow({Name = "Player Teleports", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
@@ -29,7 +67,7 @@ Tab:AddToggle({
 	Name = "Check Console",
 	Default = false,
 	Callback = function(bool)
-	getgenv().Suicide = bool
+	senv.Suicide = bool
 	if bool then
 	spawn(function()
 		while Suicide == bool do
@@ -46,7 +84,7 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddSlider({
-	Name = "Walkspeed",
+	Name = "[UPDATED] Walkspeed",
 	Min = 0,
 	Max = 200,
 	Default = 16,
@@ -54,9 +92,20 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Change Your Walkspeed",
 	Callback = function(bool)
-	_G.WalkSpeed = bool
+	_senv.WalkSpeed = bool
 	if bool then
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = bool
+		local Path = game.Players.LocalPlayer.Character.Humanoid
+		local hook
+
+		hook = hookmetamethod(game, "__index", function(self, ...)
+    		if self == Path and ... == "WalkSpeed" then
+        		return 16
+    		end
+		return hook(self,...)
+		end)
+
+
+		Path.WalkSpeed = bool
 	end
 end    
 })
@@ -70,7 +119,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "How High You Jump",
 	Callback = function(bool)
-	_G.JumpHeight = bool
+	_senv.JumpHeight = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
 	end
@@ -91,7 +140,7 @@ Tab:AddToggle({
 	Name = "Teleport",
 	Default = false,
 	Callback = function(bool)
-	getgenv().SpamTP = bool
+	_senv.SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
@@ -110,7 +159,7 @@ Tab:AddTextbox({
 	Default = "Player",
 	TextDisappear = true,
 	Callback = function(bool)
-	_G.TeleportStatus = bool	
+	_senv.TeleportStatus = bool	
 end	  
 })
 
@@ -119,7 +168,7 @@ Tab:AddDropdown({
 	Default = "("Players")",
 	Options = {"[PlayerName]", "("Players")", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
 	Callback = function(bool)
-	_G.TeleportStatus = bool
+	_senv.TeleportStatus = bool
 	game:GetService("Players")[PlayerName]
 	end    
 })
@@ -137,7 +186,7 @@ local Section = Tab:AddSection({
 Tab:AddButton({
 	Name = "[NOT WORKING]Rejoin Same Server",
 	Callback = function(bool)
-		_G.RejoinSame = bool
+		_senv.RejoinSame = bool
 		if bool then
 		game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
 	end
