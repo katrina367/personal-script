@@ -22,14 +22,30 @@ local Tab = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false})
 	
-
 Tab:AddButton({
 	Name = "Kill Player",
 	Callback = function(bool)
       	getgenv().Suicide = bool
 	if bool then 
-		game.Players.LocalPlayer.Character.Health = 0
+	      	function()
+		game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		end
 	end
+end    
+})
+
+
+Tab:AddToggle({
+	Name = "I Hate Buttons :)",
+	Default = false,
+	Callback = function(bool)
+	if bool then
+	spawn(function()
+	while suicide == bool do
+		game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		wait()
+		end
+	end)
 end    
 })
 
@@ -69,18 +85,15 @@ Tab:AddSlider({
 end    
 })
 
-
 local Tab = Window:MakeTab({
 	Name = "Teleports",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-
 local Section = Tab:AddSection({
 	Name = "Player Teleports"
 })
-
 
 Tab:AddToggle({
 	Name = "Teleport",
@@ -117,8 +130,6 @@ Tab:AddDropdown({
 		print(Value)
 	end    
 })
-
-
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
