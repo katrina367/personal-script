@@ -143,7 +143,7 @@ Tab:AddToggle({
 		spawn(function()
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = TeleportStatus
+				local p2 = _G.TeleportStatus
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
 			wait()
 			end
@@ -164,9 +164,11 @@ end
 Tab:AddDropdown({
 	Name = "Manual Teleport WIP",
 	Default = "",
-	Options = {"[PlayerName]", "[PlayerName]", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
+	Options = {"[PlayerName]", "[PlayerName]", "[PlayerName]",},
 	Callback = function(bool)
-	TeleportStatus = Value
+	Dropdown:Refresh(game.Players:GetChildren())
+	game.Players.PlayerAdded:Connect(function() Dropdown:Refresh(game.Players:GetChildren()) end)
+	game.Players.PlayerRemoving:Connect(function() Dropdown:Refresh(game.Players:GetChildren()) end)
 	end    
 })
 
@@ -209,8 +211,9 @@ end
 
 Tab:AddButton({
 	Name = "[UPDATED]Rejoin Different Server",
-	Callback = function()
-	while true do
+	Callback = function(bool)
+	_G.RejoinDiff = bool
+	if bool do
 		local tpservice= game:GetService("TeleportService")
 		local plr = game.Players.LocalPlayer
 		tpservice:Teleport(game.PlaceId, plr)
