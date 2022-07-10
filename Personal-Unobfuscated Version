@@ -4,7 +4,7 @@ _G.RejoinSame = false
 _G.RejoinDiff = false
 getgenv().Suicide = false
 getgenv().SpamTP = false
-getgenv().TeleportStatus
+getgenv().TeleportStatus = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
