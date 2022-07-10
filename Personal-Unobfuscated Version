@@ -1,7 +1,7 @@
 _G.WalkSpeed = 16
 _G.JumpHeight = 85
 _G.TeleportStatus = AdaptiveInput
-_G.SpamTP = false
+getgenv().SpamTP = false
 _G.RejoinSame = false
 _G.RejoinDiff = false
 _G.Suicide = false
@@ -86,7 +86,7 @@ Tab:AddToggle({
 	Name = "Teleport",
 	Default = false,
 	Callback = function(bool)
-	_G.SpamTP = bool
+	getgenv().SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
@@ -103,7 +103,7 @@ end
 Tab:AddTextbox({
 	Name = "Player Teleport Selection:",
 	Default = "Player",
-	TextDisappear = false,
+	TextDisappear = true,
 	Callback = function(bool)
 	_G.TeleportStatus = bool	
 end	  
@@ -151,7 +151,5 @@ Tab:AddButton({
 	end
 end    
 })
-
-
 
 OrionLib:Init()
