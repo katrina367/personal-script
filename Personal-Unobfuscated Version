@@ -21,7 +21,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING.",
 	Image = "rbxassetid://4483345998",
-	Time = 15
+	Time = 3
 })
 
 wait(0.5)
@@ -30,7 +30,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING..",
 	Image = "rbxassetid://4483345998",
-	Time = 15
+	Time = 3
 })
 
 wait(0.5)
@@ -39,7 +39,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING...",
 	Image = "rbxassetid://4483345998",
-	Time = 15
+	Time = 3
 })
 
 wait(3)
@@ -59,7 +59,6 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false})
 end
 })
-
 
 Tab:AddToggle({
 	Name = "Check Console",
@@ -161,6 +160,28 @@ Tab:AddTextbox({
 end	  
 })
 
+local tbl={}
+for i,v in next,game.Players:GetPlayers() do
+table.insert(tbl,v.Dropdown)
+end
+game.Players.PlayerRemoving:Connect(function(v)
+if table.find(tbl,v.Dropdown)then
+table.remove(tbl,table.find(tbl,v.Dropdown))
+end
+end)
+game.Players.PlayerAdded:Connect(function(Value)
+table.insert(tbl,v.Dropdown)
+end)
+
+Tab:AddDropdown({
+	Name = "Dropdown",
+	Default = "1",
+	Options = {"1", "2"},
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+
 Tab:AddDropdown({
 	Name = "Manual Teleport WIP",
 	Default = "",
@@ -192,10 +213,6 @@ Tab:AddButton({
   end    
 })
 
-
-
-
-
 Tab:AddToggle({
 	Name = "[UPDATED] Rejoin Same Server",
 	Default = false,
@@ -207,7 +224,6 @@ Tab:AddToggle({
 	end
 end    
 })
-
 
 Tab:AddButton({
 	Name = "[UPDATED]Rejoin Different Server",
@@ -222,6 +238,3 @@ end
 })
 
 OrionLib:Init()
-
-
---	game:GetService("Players")[PlayerName]
