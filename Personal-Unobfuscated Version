@@ -27,10 +27,10 @@ Tab:AddButton({
 	Name = "Kill Pllayer",
 	Callback = function(bool)
       	_G.Suicide = bool
-if bool then 
-game.Players.LocalPlayer.Character.Head:Remove()
-end
-  	end    
+	if bool then 
+		game.Players.LocalPlayer.Character.Head:Remove()
+	end
+end    
 })
 
 local Section = Tab:AddSection({
