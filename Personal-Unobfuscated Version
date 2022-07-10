@@ -4,7 +4,7 @@ _G.TeleportStatus = AdaptiveInput
 getgenv().SpamTP = false
 _G.RejoinSame = false
 _G.RejoinDiff = false
-_G.Suicide = false
+getgenv().Suicide = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -26,9 +26,9 @@ local Tab = Window:MakeTab({
 Tab:AddButton({
 	Name = "Kill Player",
 	Callback = function(bool)
-      	_G.Suicide = bool
+      	getgenv().Suicide = bool
 	if bool then 
-		game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		game.Players.LocalPlayer.Character.Health = 0
 	end
 end    
 })
