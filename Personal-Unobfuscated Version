@@ -4,8 +4,7 @@ _G.RejoinSame = false
 _G.RejoinDiff = false
 getgenv().Suicide = false
 getgenv().SpamTP = false
-
-local TeleportStatus
+getgenv().TeleportStatus
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -162,15 +161,12 @@ Tab:AddTextbox({
 end	  
 })
 
-game:GetService("Players")[PlayerName]
-
 Tab:AddDropdown({
 	Name = "Manual Teleport WIP",
-	Default = "("Players")",
-	Options = {"[PlayerName]", "("Players")", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
+	Default = "",
+	Options = {"[PlayerName]", "[PlayerName]", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
 	Callback = function(bool)
 	TeleportStatus = Value
-	game:GetService("Players")[PlayerName]
 	end    
 })
 
@@ -201,12 +197,11 @@ Tab:AddButton({
 Tab:AddToggle({
 	Name = "[UPDATED] Rejoin Same Server",
 	Default = false,
-	Callback = function()
-			while true do
-				game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
-			wait()
-			end
-		end)
+	Callback = function(bool)
+	_G.RejoinSame = bool
+		if bool then		
+			game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
+		wait()					
 	end
 end    
 })
@@ -224,3 +219,6 @@ end
 })
 
 OrionLib:Init()
+
+
+--	game:GetService("Players")[PlayerName]
