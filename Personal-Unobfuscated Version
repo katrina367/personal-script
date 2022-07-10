@@ -24,11 +24,11 @@ local Tab = Window:MakeTab({
 	
 
 Tab:AddButton({
-	Name = "Kill Pllayer",
+	Name = "Kill Player",
 	Callback = function(bool)
       	_G.Suicide = bool
 	if bool then 
-		game.Players.LocalPlayer.Character.Head:Remove()
+		game.Players.LocalPlayer.Character.Humanoid.Health = 0
 	end
 end    
 })
