@@ -1,10 +1,10 @@
 _G.WalkSpeed = 16
 _G.JumpHeight = 85
 _G.TeleportStatus = AdaptiveInput
-getgenv().SpamTP = false
 _G.RejoinSame = false
 _G.RejoinDiff = false
 getgenv().Suicide = false
+getgenv().SpamTP = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -26,13 +26,14 @@ end
 
 
 Tab:AddToggle({
-	Name = "I Hate Buttons :)",
+	Name = "Check Console",
 	Default = false,
 	Callback = function(bool)
+	getgenv().Suicide = bool
 	if bool then
 	spawn(function()
-		while suicide == bool do
-			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		while Suicide == bool do
+			print(something amazing has happened! send this to daz!)
 			wait()
 			end
 		end)
@@ -115,10 +116,11 @@ end
 
 Tab:AddDropdown({
 	Name = "Manual Teleport WIP",
-	Default = "1",
-	Options = {"1", "2"},
-	Callback = function(Value)
-		print(Value)
+	Default = "("Players")",
+	Options = {"[PlayerName]", "("Players")", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
+	Callback = function(bool)
+	_G.TeleportStatus = bool
+	game:GetService("Players")[PlayerName]
 	end    
 })
 
@@ -142,11 +144,28 @@ Tab:AddButton({
   end    
 })
 
+
+
+
+
+Tab:AddToggle({
+	Name = "[UPDATED] Rejoin Same Server",
+	Default = false,
+	Callback = function()
+			while true do
+				game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
+			wait()
+			end
+		end)
+	end
+end    
+})
+
+
 Tab:AddButton({
-	Name = "[NOT WORKING]Rejoin Different Server",
-	Callback = function(bool)
-	_G.RejoinDiff = bool
-	if bool then
+	Name = "[UPDATED]Rejoin Different Server",
+	Callback = function()
+	while true do
 		local tpservice= game:GetService("TeleportService")
 		local plr = game.Players.LocalPlayer
 		tpservice:Teleport(game.PlaceId, plr)
