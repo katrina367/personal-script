@@ -12,7 +12,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "Daz Script Hub loading",
 	Image = "rbxassetid://4483345998",
-	Time = 1
+	Time = 10
 })
 
 local Window = OrionLib:MakeWindow({Name = "Player Teleports", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
