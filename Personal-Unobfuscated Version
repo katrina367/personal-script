@@ -1,10 +1,11 @@
 _G.WalkSpeed = 16
 _G.JumpHeight = 85
-_G.TeleportStatus = AdaptiveInput
 _G.RejoinSame = false
 _G.RejoinDiff = false
 getgenv().Suicide = false
 getgenv().SpamTP = false
+
+local TeleportStatus
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -143,7 +144,7 @@ Tab:AddToggle({
 		spawn(function()
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = _G.TeleportStatus
+				local p2 = TeleportStatus
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
 			wait()
 			end
@@ -161,12 +162,14 @@ Tab:AddTextbox({
 end	  
 })
 
+game:GetService("Players")[PlayerName]
+
 Tab:AddDropdown({
 	Name = "Manual Teleport WIP",
 	Default = "("Players")",
 	Options = {"[PlayerName]", "("Players")", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
 	Callback = function(bool)
-	_G.TeleportStatus = bool
+	TeleportStatus = Value
 	game:GetService("Players")[PlayerName]
 	end    
 })
