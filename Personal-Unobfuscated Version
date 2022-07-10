@@ -1,12 +1,10 @@
-local _senv = getgenv() or _G
-
-_senv.WalkSpeed = 16
-_senv.JumpHeight = 85
-_senv.TeleportStatus = AdaptiveInput
-_senv.RejoinSame = false
-_senv.RejoinDiff = false
-_senv.Suicide = false
-_senv.SpamTP = false
+_G.WalkSpeed = 16
+_G.JumpHeight = 85
+_G.TeleportStatus = AdaptiveInput
+_G.RejoinSame = false
+_G.RejoinDiff = false
+getgenv().Suicide = false
+getgenv().SpamTP = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -67,7 +65,7 @@ Tab:AddToggle({
 	Name = "Check Console",
 	Default = false,
 	Callback = function(bool)
-	senv.Suicide = bool
+	getgenv().Suicide = bool
 	if bool then
 	spawn(function()
 		while Suicide == bool do
@@ -92,7 +90,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Change Your Walkspeed",
 	Callback = function(bool)
-	_senv.WalkSpeed = bool
+	_G.WalkSpeed = bool
 	if bool then
 		local Path = game.Players.LocalPlayer.Character.Humanoid
 		local hook
@@ -119,7 +117,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "How High You Jump",
 	Callback = function(bool)
-	_senv.JumpHeight = bool
+	_G.JumpHeight = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
 	end
@@ -140,7 +138,7 @@ Tab:AddToggle({
 	Name = "Teleport",
 	Default = false,
 	Callback = function(bool)
-	_senv.SpamTP = bool
+	getgenv().SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
@@ -159,7 +157,7 @@ Tab:AddTextbox({
 	Default = "Player",
 	TextDisappear = true,
 	Callback = function(bool)
-	_senv.TeleportStatus = bool	
+	_G.TeleportStatus = bool	
 end	  
 })
 
@@ -168,7 +166,7 @@ Tab:AddDropdown({
 	Default = "("Players")",
 	Options = {"[PlayerName]", "("Players")", "[PlayerName]", "[PlayerName]", "[PlayerName]", "send screenshot plsplspls",},
 	Callback = function(bool)
-	_senv.TeleportStatus = bool
+	_G.TeleportStatus = bool
 	game:GetService("Players")[PlayerName]
 	end    
 })
@@ -186,7 +184,7 @@ local Section = Tab:AddSection({
 Tab:AddButton({
 	Name = "[NOT WORKING]Rejoin Same Server",
 	Callback = function(bool)
-		_senv.RejoinSame = bool
+		_G.RejoinSame = bool
 		if bool then
 		game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
 	end
