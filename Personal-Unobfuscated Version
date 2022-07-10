@@ -12,7 +12,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "Daz Script Hub loading",
 	Image = "rbxassetid://4483345998",
-	Time = 15
+	Time = 30
 })
 
 wait(2)
@@ -21,7 +21,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING.",
 	Image = "rbxassetid://4483345998",
-	Time = 3
+	Time = 1
 })
 
 wait(0.5)
@@ -30,7 +30,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING..",
 	Image = "rbxassetid://4483345998",
-	Time = 3
+	Time = 1
 })
 
 wait(0.5)
@@ -39,7 +39,7 @@ OrionLib:MakeNotification({
 	Name = "Notification",
 	Content = "LOADING...",
 	Image = "rbxassetid://4483345998",
-	Time = 3
+	Time = 1
 })
 
 wait(3)
@@ -56,8 +56,7 @@ local Window = OrionLib:MakeWindow({Name = "Player Teleports", HidePremium = fal
 local Tab = Window:MakeTab({
 	Name = "Player Settings",
 	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false})
-end
+	PremiumOnly = false
 })
 
 Tab:AddToggle({
@@ -68,7 +67,7 @@ Tab:AddToggle({
 	if bool then
 	spawn(function()
 		while Suicide == bool do
-			print(something amazing has happened! send this to daz!)
+			print('something amazing has happened! send this to daz')
 			wait()
 			end
 		end)
@@ -160,7 +159,7 @@ Tab:AddTextbox({
 end	  
 })
 
-local tbl={}
+--[[local tbl={}
 for i,v in next,game.Players:GetPlayers() do
 table.insert(tbl,v.Dropdown)
 end
@@ -192,7 +191,7 @@ Tab:AddDropdown({
 	game.Players.PlayerRemoving:Connect(function() Dropdown:Refresh(game.Players:GetChildren()) end)
 	end    
 })
-
+]]
 local Tab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://4483345998",
@@ -225,16 +224,16 @@ Tab:AddToggle({
 end    
 })
 
-Tab:AddButton({
+--[[Tab:AddButton({
 	Name = "[UPDATED]Rejoin Different Server",
 	Callback = function(bool)
 	_G.RejoinDiff = bool
-	if bool do
+	if bool then do
 		local tpservice= game:GetService("TeleportService")
 		local plr = game.Players.LocalPlayer
 		tpservice:Teleport(game.PlaceId, plr)
 	end
 end    
 })
-
+]]
 OrionLib:Init()
