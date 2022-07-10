@@ -21,17 +21,7 @@ local Tab = Window:MakeTab({
 	Name = "Player Settings",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false})
-	
-Tab:AddButton({
-	Name = "Kill Player",
-	Callback = function(bool)
-      	getgenv().Suicide = bool
-	if bool then 
-	      	function()
-		game.Players.LocalPlayer.Character.Humanoid.Health = 0
-		end
-	end
-end    
+end
 })
 
 
@@ -41,11 +31,12 @@ Tab:AddToggle({
 	Callback = function(bool)
 	if bool then
 	spawn(function()
-	while suicide == bool do
-		game.Players.LocalPlayer.Character.Humanoid.Health = 0
-		wait()
-		end
-	end)
+		while suicide == bool do
+			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+			wait()
+			end
+		end)
+	end
 end    
 })
 
