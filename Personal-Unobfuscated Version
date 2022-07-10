@@ -86,7 +86,7 @@ Tab:AddToggle({
 	Name = "Teleport",
 	Default = false,
 	Callback = function(bool)
-	getgenv().SpamTP = bool
+	_G.SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
@@ -150,70 +150,6 @@ Tab:AddButton({
 		tpservice:Teleport(game.PlaceId, plr)
 	end
 end    
-})
-
-
-
-OrionLib:Init()
-end    
-})
-
-Tab:AddSlider({
-	Name = "JumpPower",
-	Min = 0,
-	Max = 400,
-	Default = 85,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "How High You Jump",
-	Callback = function(bool)
-	_G.JumpHeight = bool
-	if bool then
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
-	end
-end    
-})
-
-
-local Tab = Window:MakeTab({
-	Name = "Teleports",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-
-local Section = Tab:AddSection({
-	Name = "Player Teleports"
-})
-
-
-Tab:AddToggle({
-	Name = "Teleport",
-	Default = false,
-	Callback = function(bool)
-	_G.SpamTP = bool
-	if bool then
-		spawn(function()
-			while SpamTP == bool do
-				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = _G.TeleportStatus
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
-			wait()
-			end
-		end)
-	end
-end    
-})
-
-
-
-Tab:AddTextbox({
-	Name = "Player:",
-	Default = "",
-	TextDisappear = true,
-	Callback = function(bool)
-	_G.TeleportStatus = bool	
-end	  
 })
 
 
