@@ -1,0 +1,353 @@
+_G.WalkSpeed = 16
+_G.JumpHeight = 50
+_G.RejoinSame = false
+_G.RejoinDiff = false
+getgenv().Suicide = false
+getgenv().SpamTP = false
+getgenv().TeleportStatus = Adaptive
+_G.TeleportPlayer = false
+_G.Bedwars = false
+_G.Raise_A_Floppa_2 = false
+_G.MM2 = false
+getgenv().Noclip = false
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+OrionLib:MakeNotification({
+	Name = "Loading Script hub..",
+	Content = "Daz Script Hub  is Loading",
+	Image = "rbxassetid://8226141461",
+	Time = 5.5
+})
+
+wait(2)
+
+OrionLib:MakeNotification({
+	Name = "Progress (1/3)",
+	Content = "LOADING.",
+	Image = "rbxassetid://6386003052",
+	Time = 3.5
+})
+
+wait(0.5)
+
+OrionLib:MakeNotification({
+	Name = "Pregress (2/3)",
+	Content = "LOADING..",
+	Image = "rbxassetid://6386003052",
+	Time = 3
+})
+
+wait(0.5)
+
+OrionLib:MakeNotification({
+	Name = "Progress (3/3)",
+	Content = "INITIATING LAUNCH..",
+	Image = "rbxassetid://6386003052",
+	Time = 2.5
+})
+
+wait(3)
+
+OrionLib:MakeNotification({
+	Name = "Success!",
+	Content = "Made By daz. Special thanks to Jacko.",
+	Image = "rbxassetid://9715044824",
+	Time = 30
+})
+
+local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Player Settings",
+	Icon = "rbxassetid://9525535512",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Player Options"
+})
+
+Tab:AddToggle({
+	Name = "Kill Player",
+	Default = false,
+	Callback = function(bool)
+	getgenv().Suicide = bool
+	if bool then
+	spawn(function()
+		while Suicide == bool do
+                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+            wait()
+			end
+		end)
+	end
+end    
+})
+
+Tab:AddToggle({
+	Name = "Player Noclip",
+	Default = false,
+	Callback = function(bool)
+	getgenv().Noclip = bool
+        if bool then
+            local runservice = game:GetService("RunService")
+
+            local player = game:GetService("Players").LocalPlayer
+
+            runservice.Stepped:Connect(function()
+                for i,v in pairs(player.Character:GetDescendants()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = bool
+                    end
+                end
+            end)
+        end
+	end    
+})
+
+Tab:AddSlider({
+	Name = "[UPDATED] Walkspeed",
+	Min = 0,
+	Max = 200,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Change Your Walkspeed",
+	Callback = function(bool)
+	_G.WalkSpeed = bool
+	if bool then
+		local Path = game.Players.LocalPlayer.Character.Humanoid
+		local hook
+
+		hook = hookmetamethod(game, "__index", function(self, ...)
+    		if self == Path and ... == "WalkSpeed" then
+        		return 16
+    		end
+		return hook(self,...)
+		end)
+
+
+		Path.WalkSpeed = bool
+        wait(0.1)
+	end
+end    
+})
+
+Tab:AddSlider({
+	Name = "JumpPower",
+	Min = 0,
+	Max = 400,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "How High You Jump",
+	Callback = function(bool)
+	_G.JumpHeight = bool
+	if bool then
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
+        wait(0.1)
+	end
+end    
+})
+
+local Tab = Window:MakeTab({
+	Name = "Teleports",
+	Icon = "rbxassetid://6723742952",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Player Teleports"
+})
+
+Tab:AddToggle({
+	Name = "Teleport Player Toggle",
+	Default = false,
+	Callback = function(bool)
+	getgenv().SpamTP = bool
+	if bool then
+		spawn(function()
+			while SpamTP == bool do
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = _G.TeleportStatus
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+			wait()
+			end
+		end)
+	end
+end    
+})
+
+Tab:AddTextbox({
+	Name = "Player Teleport Selection:",
+	Default = "Player",
+	TextDisappear = false,
+	Callback = function(bool)
+	_G.TeleportStatus = bool
+			OrionLib:MakeNotification({
+			Name = "Teleport Selection",
+			Content = "Player has been Selected",
+			Image = "rbxassetid://6723742952",
+			Time = 5
+		})
+end	  
+})
+
+local Section = Tab:AddSection({
+	Name = "Second Player Teleport"
+})
+
+
+Tab:AddToggle({
+	Name = "Teleport Player Toggle 2",
+	Default = false,
+	Callback = function(bool)
+	getgenv().SpamTP = bool
+	if bool then
+		spawn(function()
+			while SpamTP == bool do
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = _G.TeleportPlayer
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+			wait()
+			end
+		end)
+	end
+end    
+})
+
+Tab:AddTextbox({
+	Name = "Player Teleport Selection:",
+	Default = "Player",
+	TextDisappear = false,
+	Callback = function(bool)
+	_G.TeleportPlayer = bool
+			OrionLib:MakeNotification({
+			Name = "Teleport Selection",
+			Content = "Player has been Selected",
+			Image = "rbxassetid://6723742952",
+			Time = 5
+		})
+end	  
+})
+
+local Tab = Window:MakeTab({
+	Name = "Supported",
+	Icon = "rbxassetid://8215093320",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "Bedwars",
+	Default = false,
+	Callback = function(bool)
+		_G.Bedwars = bool
+        if bool then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
+		end  
+	end  
+})
+
+Tab:AddToggle({
+	Name = "Raise a Floppa 2",
+	Default = false,
+	Callback = function(bool)
+        _G.Raise_A_Floppa_2 = bool
+		if bool then
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui'))()
+        end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Eclipse Hub (MM2 GUI)",
+	Default = false,
+	Callback = function(bool)
+		_G.MM2 = bool
+        if bool then
+        local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+        end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Owl Hub",
+	Default = false,
+	Callback = function(bool)
+		_G.Owl = bool
+        if bool then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
+        end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "This is a toggle!",
+	Default = false,
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+
+
+
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://7059346373",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Rejoins"
+})
+
+Tab:AddToggle({
+	Name = "[WORKING] Rejoin Same Server",
+	Default = false,
+	Callback = function(bool)
+	_G.RejoinSame = bool
+		if bool then
+			OrionLib:MakeNotification({
+			Name = "Notification",
+			Content = "Rejoining",
+			Image = "rbxassetid://4483345998",
+			Time = 3
+			})
+			wait(3)
+			game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
+		wait()					
+	end
+end    
+})
+
+Tab:AddToggle({
+	Name = "[WORKING] Rejoin Different Server",
+	Default = false,
+	Callback = function(bool)
+	_G.RejoinDiff = bool
+		if bool then
+			OrionLib:MakeNotification({
+			Name = "Alert",
+			Content = "Rejoining",
+			Image = "rbxassetid://4483345998",
+			Time = 3
+			})
+			wait(3)	
+			local tpservice= game:GetService("TeleportService")
+			local plr = game.Players.LocalPlayer
+			tpservice:Teleport(game.PlaceId, plr)		
+		wait()					
+	end
+end    
+})
+
+local Tab = Window:MakeTab({
+	Name = "Credits",
+	Icon = "rbxassetid://3019710362",
+	PremiumOnly = false
+})
+
+Tab:AddParagraph("Thank You to Everyone That Helped","Scrumptious - Thanks for the Walkspeed Script, Jacko - Script Tester, HyperNova - Helped fix errors within my trash coding, Last but not least wYn for his epic tutorials :)")
+
+OrionLib:Init()
