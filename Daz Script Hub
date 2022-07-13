@@ -1,18 +1,47 @@
-_G.WalkSpeed = 16
-_G.JumpHeight = 50
-_G.RejoinSame = false
-_G.RejoinDiff = false
+getgenv().WalkSpeed = 16
+getgenv().JumpHeight = 50
+getgenv().RejoinSame = false
+getgenv().RejoinDiff = false
 getgenv().Suicide = false
 getgenv().SpamTP = false
 getgenv().TeleportStatus = Adaptive
-_G.TeleportPlayer = false
-_G.Bedwars = false
-_G.Raise_A_Floppa_2 = false
-_G.MM2 = false
+getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
+--[[
+    local players = game:GetService"Players":GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    Dropdown:Refresh(PlayerList)
+    Dropdown:Set(a)
+end)
+game:GetService"Players".PlayerRemoving:Connect(function()
+    wait(1)
+    local players = game.Players:GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    Dropdown:Refresh(PlayerList)
+    Dropdown:Set(a)
+end)
+do
+    local players = game:GetService"Players":GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    Dropdown:Refresh(PlayerList)
+    Dropdown:Set(a)
+end
+]]
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
 	Content = "Daz Script Hub  is Loading",
@@ -53,7 +82,7 @@ OrionLib:MakeNotification({
 	Name = "Success!",
 	Content = "Made By daz. Special thanks to Jacko.",
 	Image = "rbxassetid://9715044824",
-	Time = 30
+	Time = 50
 })
 
 local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
@@ -68,41 +97,28 @@ local Section = Tab:AddSection({
 	Name = "Player Options"
 })
 
-Tab:AddToggle({
-	Name = "Kill Player",
-	Default = false,
-	Callback = function(bool)
-	getgenv().Suicide = bool
-	if bool then
-	spawn(function()
-		while Suicide == bool do
-                game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            wait()
-			end
-		end)
-	end
-end    
+Tab:AddButton({
+	Name = "Player Suicide",
+	Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
+  	end    
 })
 
-Tab:AddToggle({
-	Name = "Player Noclip",
-	Default = false,
-	Callback = function(bool)
-	getgenv().Noclip = bool
-        if bool then
-            local runservice = game:GetService("RunService")
+Tab:AddButton({
+	Name = "Noclip",
+	Callback = function(Value)
+        local runservice = game:GetService("RunService")
 
-            local player = game:GetService("Players").LocalPlayer
+        local player = game:GetService("Players").LocalPlayer
 
-            runservice.Stepped:Connect(function()
-                for i,v in pairs(player.Character:GetDescendants()) do
-                    if v:IsA("BasePart") then
-                        v.CanCollide = bool
-                    end
+        runservice.Stepped:Connect(function()
+            for i,v in pairs(player.Character:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
                 end
-            end)
-        end
-	end    
+            end
+        end)
+  	end    
 })
 
 Tab:AddSlider({
@@ -114,7 +130,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Change Your Walkspeed",
 	Callback = function(bool)
-	_G.WalkSpeed = bool
+	getgenv().WalkSpeed = bool
 	if bool then
 		local Path = game.Players.LocalPlayer.Character.Humanoid
 		local hook
@@ -142,7 +158,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "How High You Jump",
 	Callback = function(bool)
-	_G.JumpHeight = bool
+	getgenv().JumpHeight = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
         wait(0.1)
@@ -183,7 +199,7 @@ Tab:AddTextbox({
 	Default = "Player",
 	TextDisappear = false,
 	Callback = function(bool)
-	_G.TeleportStatus = bool
+	getgenv().TeleportStatus = bool
 			OrionLib:MakeNotification({
 			Name = "Teleport Selection",
 			Content = "Player has been Selected",
@@ -207,7 +223,7 @@ Tab:AddToggle({
 		spawn(function()
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = _G.TeleportPlayer
+				local p2 = getgenv().TeleportPlayer
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
 			wait()
 			end
@@ -221,15 +237,55 @@ Tab:AddTextbox({
 	Default = "Player",
 	TextDisappear = false,
 	Callback = function(bool)
-	_G.TeleportPlayer = bool
+	getgenv().TeleportPlayer = bool
 			OrionLib:MakeNotification({
 			Name = "Teleport Selection",
 			Content = "Player has been Selected",
 			Image = "rbxassetid://6723742952",
 			Time = 5
 		})
-end	  
+	end	  
 })
+
+local dropdown = Tab:AddDropdown({
+    Name = "Player Dropdown",
+    Default = tbl[1],
+    Options = tbl,
+    Callback = function(v)
+        a = v
+    end    
+})
+game:GetService"Players".PlayerAdded:Connect(function()
+    local players = game:GetService"Players":GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    dropdown:Refresh(PlayerList)
+    dropdown:Set(a)
+end)
+game:GetService"Players".PlayerRemoving:Connect(function()
+    wait(1)
+    local players = game.Players:GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    dropdown:Refresh(PlayerList)
+    dropdown:Set(a)
+end)
+do
+    local players = game:GetService"Players":GetChildren()
+    local PlayerList = {}
+
+    for i,v in pairs(players) do
+        table.insert(PlayerList,v.Name)
+    end
+    dropdown:Refresh(PlayerList)
+    dropdown:Set(a)
+end
 
 local Tab = Window:MakeTab({
 	Name = "Supported",
@@ -237,64 +293,77 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddToggle({
-	Name = "Bedwars",
-	Default = false,
-	Callback = function(bool)
-		_G.Bedwars = bool
-        if bool then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
-		end  
-	end  
-})
+Tab:AddParagraph("GUI Buttons,", "Tap The Button for The Game You Want To Execute Scripts for")
 
-Tab:AddToggle({
-	Name = "Raise a Floppa 2",
-	Default = false,
-	Callback = function(bool)
-        _G.Raise_A_Floppa_2 = bool
-		if bool then
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui'))()
-        end
-	end    
-})
 
-Tab:AddToggle({
-	Name = "Eclipse Hub (MM2 GUI)",
-	Default = false,
-	Callback = function(bool)
-		_G.MM2 = bool
-        if bool then
-        local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
-        end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Owl Hub",
-	Default = false,
-	Callback = function(bool)
-		_G.Owl = bool
-        if bool then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
-        end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "This is a toggle!",
-	Default = false,
+Tab:AddButton({
+	Name = "Fling GUI",
 	Callback = function(Value)
-		print(Value)
-	end    
+        loadstring(HttpGet('https://pastebin.com/FFApH86f'))()
+  	end    
 })
 
 
 
+Tab:AddButton({
+	Name = "Bedwars GUI (Vape)",
+	Callback = function(Value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
+  	end    
+})
+
+
+
+
+Tab:AddButton({
+	Name = "Raise a Floppa",
+	Callback = function(Value)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui'))()
+  	end    
+})
+
+
+
+
+Tab:AddButton({
+	Name = "Eclipse Hub (MM2 GUI)",
+	Callback = function(Value)
+        local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+  	end    
+})
+
+
+
+
+Tab:AddButton({
+	Name = "Owl Hub (ESP, AIMBOT)",
+	Callback = function(Value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
+  	end    
+})
+
+
+
+
+Tab:AddButton({
+	Name = "Mining Simulator 2",
+	Callback = function(Value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua"))()
+  	end    
+})
+
+
+
+Tab:AddButton({
+	Name = "Pet Simulator X",
+	Callback = function(Value)
+        loadstring(game:HttpGet"https://rawscripts.net/raw/Project-Meow_421")()
+  	end    
+})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://7059346373",
+	Icon = "rbxassetid://9405931578",
 	PremiumOnly = false
 })
 
@@ -306,12 +375,12 @@ Tab:AddToggle({
 	Name = "[WORKING] Rejoin Same Server",
 	Default = false,
 	Callback = function(bool)
-	_G.RejoinSame = bool
+	getgenv().RejoinSame = bool
 		if bool then
 			OrionLib:MakeNotification({
 			Name = "Notification",
 			Content = "Rejoining",
-			Image = "rbxassetid://4483345998",
+			Image = "rbxassetid://1698157423",
 			Time = 3
 			})
 			wait(3)
@@ -325,12 +394,12 @@ Tab:AddToggle({
 	Name = "[WORKING] Rejoin Different Server",
 	Default = false,
 	Callback = function(bool)
-	_G.RejoinDiff = bool
+	getgenv().RejoinDiff = bool
 		if bool then
 			OrionLib:MakeNotification({
 			Name = "Alert",
 			Content = "Rejoining",
-			Image = "rbxassetid://4483345998",
+			Image = "rbxassetid://1698157423",
 			Time = 3
 			})
 			wait(3)	
