@@ -10,38 +10,6 @@ getgenv().Noclip = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
---[[
-    local players = game:GetService"Players":GetChildren()
-    local PlayerList = {}
-
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    Dropdown:Refresh(PlayerList)
-    Dropdown:Set(a)
-end)
-game:GetService"Players".PlayerRemoving:Connect(function()
-    wait(1)
-    local players = game.Players:GetChildren()
-    local PlayerList = {}
-
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    Dropdown:Refresh(PlayerList)
-    Dropdown:Set(a)
-end)
-do
-    local players = game:GetService"Players":GetChildren()
-    local PlayerList = {}
-
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    Dropdown:Refresh(PlayerList)
-    Dropdown:Set(a)
-end
-]]
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
 	Content = "Daz Script Hub  is Loading",
@@ -82,10 +50,10 @@ OrionLib:MakeNotification({
 	Name = "Success!",
 	Content = "Made By daz. Special thanks to Jacko.",
 	Image = "rbxassetid://9715044824",
-	Time = 50
+	Time = 20
 })
 
-local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "Player Settings",
@@ -93,31 +61,102 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+--GAME DETECT
+if game.PlaceId == 6872265039 then
+    OrionLib:MakeNotification({
+	Name = "Your Game: BedWars, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 9772878203 then
+    OrionLib:MakeNotification({
+	Name = "Your Game: Raise a Floppa, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 142823291 then
+    OrionLib:MakeNotification({
+	Name = "Your Game: Murder Mystery 2, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 9551640993 then
+    OrionLib:MakeNotification({
+	Name = "Your Game: Mining Simulator 2, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 6284583030 then
+    OrionLib:MakeNotification({
+	Name = "Your Game: PSX, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+
+--END OF GAME DETECT
+
 local Section = Tab:AddSection({
 	Name = "Player Options"
 })
+
+
+local Noclipping, Clip
+local plrw = game:GetService'Players'.LocalPlayer.Character
+local function NoclipLoop()
+    if Clip == false    then
+        for _, child in pairs(plrw:GetDescendants()) do
+            if child:IsA("BasePart") and child.CanCollide == true then
+                child.CanCollide = false
+            end
+        end
+    end
+end
+
+
+Tab:AddToggle({
+	Name = "Noclip",
+	Default = false,
+	Callback = function(toggleval)
+        if toggleval then
+            Clip = false
+            Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+          else
+            Clip = true
+            if Noclipping then
+              Noclipping:Disconnect()
+            end
+          end
+end    
+})
+
 
 Tab:AddButton({
 	Name = "Player Suicide",
 	Callback = function(Value)
         game.Players.LocalPlayer.Character.Humanoid.Health = 0
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Noclip",
-	Callback = function(Value)
-        local runservice = game:GetService("RunService")
-
-        local player = game:GetService("Players").LocalPlayer
-
-        runservice.Stepped:Connect(function()
-            for i,v in pairs(player.Character:GetDescendants()) do
-                if v:IsA("BasePart") then
-                    v.CanCollide = false
-                end
-            end
-        end)
   	end    
 })
 
@@ -173,49 +212,13 @@ local Tab = Window:MakeTab({
 })
 
 local Section = Tab:AddSection({
-	Name = "Player Teleports"
+	Name = "Player Teleport"
 })
+
+
 
 Tab:AddToggle({
 	Name = "Teleport Player Toggle",
-	Default = false,
-	Callback = function(bool)
-	getgenv().SpamTP = bool
-	if bool then
-		spawn(function()
-			while SpamTP == bool do
-				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = _G.TeleportStatus
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
-			wait()
-			end
-		end)
-	end
-end    
-})
-
-Tab:AddTextbox({
-	Name = "Player Teleport Selection:",
-	Default = "Player",
-	TextDisappear = false,
-	Callback = function(bool)
-	getgenv().TeleportStatus = bool
-			OrionLib:MakeNotification({
-			Name = "Teleport Selection",
-			Content = "Player has been Selected",
-			Image = "rbxassetid://6723742952",
-			Time = 5
-		})
-end	  
-})
-
-local Section = Tab:AddSection({
-	Name = "Second Player Teleport"
-})
-
-
-Tab:AddToggle({
-	Name = "Teleport Player Toggle 2",
 	Default = false,
 	Callback = function(bool)
 	getgenv().SpamTP = bool
@@ -232,27 +235,15 @@ Tab:AddToggle({
 end    
 })
 
-Tab:AddTextbox({
-	Name = "Player Teleport Selection:",
-	Default = "Player",
-	TextDisappear = false,
-	Callback = function(bool)
-	getgenv().TeleportPlayer = bool
-			OrionLib:MakeNotification({
-			Name = "Teleport Selection",
-			Content = "Player has been Selected",
-			Image = "rbxassetid://6723742952",
-			Time = 5
-		})
-	end	  
-})
+local a
 
 local dropdown = Tab:AddDropdown({
     Name = "Player Dropdown",
-    Default = tbl[1],
+    Default = tbl,
     Options = tbl,
     Callback = function(v)
         a = v
+        getgenv().TeleportPlayer = v
     end    
 })
 game:GetService"Players".PlayerAdded:Connect(function()
@@ -262,7 +253,7 @@ game:GetService"Players".PlayerAdded:Connect(function()
     for i,v in pairs(players) do
         table.insert(PlayerList,v.Name)
     end
-    dropdown:Refresh(PlayerList)
+    dropdown:Refresh(PlayerList, true)
     dropdown:Set(a)
 end)
 game:GetService"Players".PlayerRemoving:Connect(function()
@@ -273,7 +264,7 @@ game:GetService"Players".PlayerRemoving:Connect(function()
     for i,v in pairs(players) do
         table.insert(PlayerList,v.Name)
     end
-    dropdown:Refresh(PlayerList)
+    dropdown:Refresh(PlayerList, true)
     dropdown:Set(a)
 end)
 do
@@ -283,9 +274,10 @@ do
     for i,v in pairs(players) do
         table.insert(PlayerList,v.Name)
     end
-    dropdown:Refresh(PlayerList)
+    dropdown:Refresh(PlayerList, true)
     dropdown:Set(a)
 end
+
 
 local Tab = Window:MakeTab({
 	Name = "Supported",
@@ -295,69 +287,54 @@ local Tab = Window:MakeTab({
 
 Tab:AddParagraph("GUI Buttons,", "Tap The Button for The Game You Want To Execute Scripts for")
 
+local GameTable = {
+    {
+        placeid = {6872265039},
+        callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
+        end
+    }
+}
+
+local function AddGame(placeid, functioner)
+    local InsertTable = {}
+    InsertTable.placeid = {}
+    InsertTable.placeid[1] = placeid
+    InsertTable.callback = function()
+        loadstring(game:HttpGet(functioner))()
+    end
+    table.insert(GameTable, InsertTable)
+end
+
+AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui')
+AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-train/main/Eclipsehub.lua')
+AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua")
+AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421")
+
+
+Tab:AddButton({
+	Name = "Activate External GUI",
+	Callback = function()
+        for i,v in pairs(GameTable) do
+            if table.find(v.placeid, game.PlaceId) then
+                v.callback()
+            end
+        end
+    end
+})
+
 
 Tab:AddButton({
 	Name = "Fling GUI",
 	Callback = function(Value)
-        loadstring(HttpGet('https://pastebin.com/FFApH86f'))()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Fling%20GUI', true))()
   	end    
 })
-
-
-
-Tab:AddButton({
-	Name = "Bedwars GUI (Vape)",
-	Callback = function(Value)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
-  	end    
-})
-
-
-
-
-Tab:AddButton({
-	Name = "Raise a Floppa",
-	Callback = function(Value)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui'))()
-  	end    
-})
-
-
-
-
-Tab:AddButton({
-	Name = "Eclipse Hub (MM2 GUI)",
-	Callback = function(Value)
-        local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
-  	end    
-})
-
-
-
 
 Tab:AddButton({
 	Name = "Owl Hub (ESP, AIMBOT)",
 	Callback = function(Value)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
-  	end    
-})
-
-
-
-
-Tab:AddButton({
-	Name = "Mining Simulator 2",
-	Callback = function(Value)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua"))()
-  	end    
-})
-
-
-
-Tab:AddButton({
-	Name = "Pet Simulator X",
-	Callback = function(Value)
-        loadstring(game:HttpGet"https://rawscripts.net/raw/Project-Meow_421")()
   	end    
 })
 
