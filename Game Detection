@@ -11,7 +11,7 @@ end
 
 wait()
 
-elseif game.PlaceId == 9772878203 then
+if game.PlaceId == 9772878203 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: Raise a Floppa, Is Supported,",
 	Content = "Go to The Support Tab to Execute Your Script",
@@ -22,7 +22,7 @@ end
 
 wait()
 
-elseif game.PlaceId == 142823291 then
+if game.PlaceId == 142823291 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: Murder Mystery 2, Is Supported,",
 	Content = "Go to The Support Tab to Execute Your Script",
@@ -33,7 +33,7 @@ end
 
 wait()
 
-elseif game.PlaceId == 9551640993 then
+if game.PlaceId == 9551640993 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: Mining Simulator 2, Is Supported,",
 	Content = "Go to The Support Tab to Execute Your Script",
@@ -44,7 +44,7 @@ end
 
 wait()
 
-elseif game.PlaceId == 6284583030 then
+if game.PlaceId == 6284583030 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: PSX, Is Supported,",
 	Content = "Go to The Support Tab to Execute Your Script",
