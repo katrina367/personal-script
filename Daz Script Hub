@@ -53,63 +53,6 @@ OrionLib:MakeNotification({
 	Time = 20
 })
 
---GAME DETECT
-
-if game.PlaceId == 6872265039 then
-	OrionLib:MakeNotification({
-	Name = "Your Game: BedWars, Is Supported,",
-	Content = "Go to The Support Tab to Execute Your Script",
-	Image = "rbxassetid://4335489513",
-	Time = 10
-})
-end
-
-wait()
-
-if game.PlaceId == 9772878203 then
-	OrionLib:MakeNotification({
-	Name = "Your Game: Raise a Floppa, Is Supported,",
-	Content = "Go to The Support Tab to Execute Your Script",
-	Image = "rbxassetid://4335489513",
-	Time = 10
-})
-end
-
-wait()
-
-if game.PlaceId == 142823291 then
-	OrionLib:MakeNotification({
-	Name = "Your Game: Murder Mystery 2, Is Supported,",
-	Content = "Go to The Support Tab to Execute Your Script",
-	Image = "rbxassetid://4335489513",
-	Time = 10
-})
-end
-
-wait()
-
-if game.PlaceId == 9551640993 then
-	OrionLib:MakeNotification({
-	Name = "Your Game: Mining Simulator 2, Is Supported,",
-	Content = "Go to The Support Tab to Execute Your Script",
-	Image = "rbxassetid://4335489513",
-	Time = 10
-})
-end
-
-wait()
-
-if game.PlaceId == 6284583030 then
-	OrionLib:MakeNotification({
-	Name = "Your Game: PSX, Is Supported,",
-	Content = "Go to The Support Tab to Execute Your Script",
-	Image = "rbxassetid://4335489513",
-	Time = 10
-})
-end		
-
---END OF GAME DETECT
-
 local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
@@ -117,14 +60,7 @@ local Tab = Window:MakeTab({
 	Icon = "rbxassetid://9525535512",
 	PremiumOnly = false
 })
---[[
-Tab:AddButton({
-	Name = "Check if Game is Supported",
-	Callback = function(Value)        
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))()
-  	end    
-})
-]]
+
 local Section = Tab:AddSection({
 	Name = "Player Options"
 })
@@ -318,6 +254,67 @@ AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-trai
 AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua")
 AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421")
 
+local Section = Tab:AddSection({
+	Name = "Game Support"
+})
+
+Tab:AddButton({
+	Name = "Check if Game is Supported",
+	Callback = function(Value)        
+		if game.PlaceId == 6872265039 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: BedWars, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+		
+		wait()
+		
+		if game.PlaceId == 9772878203 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: Floppa 2, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+		
+		wait()
+		
+		if game.PlaceId == 142823291 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: MM2, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+		
+		wait()
+		
+		if game.PlaceId == 9551640993 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: MS2, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+		
+		wait()
+		
+		if game.PlaceId == 6284583030 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: PSX, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end	
+  	end    
+})
 
 Tab:AddButton({
 	Name = "Activate External GUI",
@@ -330,6 +327,9 @@ Tab:AddButton({
     end
 })
 
+local Section = Tab:AddSection({
+	Name = "Other Guis"
+})
 
 Tab:AddButton({
 	Name = "Fling GUI",
