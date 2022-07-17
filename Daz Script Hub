@@ -63,8 +63,8 @@ local Tab = Window:MakeTab({
 
 Tab:AddButton({
 	Name = "Check if Game is Supported",
-	Callback = function(Value)        
-		loadstring(HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))
+	Callback = function()        
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))()
   	end    
 })
 
