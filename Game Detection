@@ -2,7 +2,7 @@ local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = fal
 
 
 Tab:AddButton({
-	Name = "Button!",
+	Name = "Check If Game Is Supported",
 	Callback = function()
 		if game.PlaceId == 6872265039 then
 			OrionLib:MakeNotification({
