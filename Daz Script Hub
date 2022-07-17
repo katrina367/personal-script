@@ -61,7 +61,12 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-loadstring(HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))
+Tab:AddButton({
+	Name = "Check if Game is Supported",
+	Callback = function(Value)        
+		loadstring(HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))
+  	end    
+})
 
 local Section = Tab:AddSection({
 	Name = "Player Options"

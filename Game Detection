@@ -1,60 +1,57 @@
 local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
-
-Tab:AddButton({
-	Name = "Check If Game Is Supported",
-	Callback = function()
-		if game.PlaceId == 6872265039 then
-			OrionLib:MakeNotification({
-			Name = "Your Game: BedWars, Is Supported,",
-			Content = "Go to The Support Tab to Execute Your Script",
-			Image = "rbxassetid://4335489513",
-			Time = 10
-		})
-		end
-		
-		wait()
-		
-		if game.PlaceId == 9772878203 then
-			OrionLib:MakeNotification({
-			Name = "Your Game: Raise a Floppa, Is Supported,",
-			Content = "Go to The Support Tab to Execute Your Script",
-			Image = "rbxassetid://4335489513",
-			Time = 10
-		})
-		end
-		
-		wait()
-		
-		if game.PlaceId == 142823291 then
-			OrionLib:MakeNotification({
-			Name = "Your Game: Murder Mystery 2, Is Supported,",
-			Content = "Go to The Support Tab to Execute Your Script",
-			Image = "rbxassetid://4335489513",
-			Time = 10
-		})
-		end
-		
-		wait()
-		
-		if game.PlaceId == 9551640993 then
-			OrionLib:MakeNotification({
-			Name = "Your Game: Mining Simulator 2, Is Supported,",
-			Content = "Go to The Support Tab to Execute Your Script",
-			Image = "rbxassetid://4335489513",
-			Time = 10
-		})
-		end
-		
-		wait()
-		
-		if game.PlaceId == 6284583030 then
-			OrionLib:MakeNotification({
-			Name = "Your Game: PSX, Is Supported,",
-			Content = "Go to The Support Tab to Execute Your Script",
-			Image = "rbxassetid://4335489513",
-			Time = 10
-		})
-		end		
-  	end    
+if game.PlaceId == 6872265039 then
+	OrionLib:MakeNotification({
+	Name = "Your Game: BedWars, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
 })
+end
+
+wait()
+
+if game.PlaceId == 9772878203 then
+	OrionLib:MakeNotification({
+	Name = "Your Game: Raise a Floppa, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 142823291 then
+	OrionLib:MakeNotification({
+	Name = "Your Game: Murder Mystery 2, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 9551640993 then
+	OrionLib:MakeNotification({
+	Name = "Your Game: Mining Simulator 2, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end
+
+wait()
+
+if game.PlaceId == 6284583030 then
+	OrionLib:MakeNotification({
+	Name = "Your Game: PSX, Is Supported,",
+	Content = "Go to The Support Tab to Execute Your Script",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+})
+end		
+
+
+
