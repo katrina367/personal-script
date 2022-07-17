@@ -102,7 +102,7 @@ end
 })
 
 Tab:AddSlider({
-	Name = "[UPDATED] Walkspeed",
+	Name = "Walkspeed",
 	Min = 0,
 	Max = 200,
 	Default = 16,
