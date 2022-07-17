@@ -253,6 +253,11 @@ AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa
 AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-train/main/Eclipsehub.lua')
 AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua")
 AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421")
+AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua")
+AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua")
+AddGame(537413528,"https://raw.githubusercontent.com/Deni210/BABFT/main/Ruby%20Hub")
+AddGame(286090429,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
+AddGame(3233893879,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 
 local Section = Tab:AddSection({
 	Name = "Game Support"
@@ -260,7 +265,53 @@ local Section = Tab:AddSection({
 
 Tab:AddButton({
 	Name = "Check if Game is Supported",
-	Callback = function(Value)        
+	Callback = function(Value)    
+		
+		if game.PlaceId == 3233893879 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: Bad Business, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+
+		if game.PlaceId == 286090429 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: Arsenal, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+
+		if game.PlaceId == 537413528 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: BABFT, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+
+		if game.PlaceId == 6447798030 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: Funky Friday, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+
+		if game.PlaceId == 9808430159 then
+			OrionLib:MakeNotification({
+			Name = "Your Game: Scan Test, Is Supported,",
+			Content = "Go to The Support Tab to Execute Your Script",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+		})
+		end
+
 		if game.PlaceId == 6872265039 then
 			OrionLib:MakeNotification({
 			Name = "Your Game: BedWars, Is Supported,",
@@ -326,6 +377,9 @@ Tab:AddButton({
         end
     end
 })
+
+Tab:AddParagraph("Supported Games List, click: Check if Supported if your lazy","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday,")
+
 
 local Section = Tab:AddSection({
 	Name = "Other Guis"
