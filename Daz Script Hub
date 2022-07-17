@@ -78,6 +78,12 @@ local function NoclipLoop()
     end
 end
 
+Tab:AddButton({
+	Name = "Player Suicide",
+	Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
+  	end    
+})
 
 Tab:AddToggle({
 	Name = "Noclip",
@@ -93,14 +99,6 @@ Tab:AddToggle({
             end
           end
 end    
-})
-
-
-Tab:AddButton({
-	Name = "Player Suicide",
-	Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.Health = 0
-  	end    
 })
 
 Tab:AddSlider({
@@ -255,7 +253,7 @@ AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemU
 AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421")
 AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua")
 AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua")
-AddGame(537413528,"https://raw.githubusercontent.com/Deni210/BABFT/main/Ruby%20Hub")
+AddGame(537413528,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 AddGame(286090429,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 AddGame(3233893879,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 
@@ -378,9 +376,6 @@ Tab:AddButton({
     end
 })
 
-Tab:AddParagraph("Supported Games List, click: Check if Supported if your lazy","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday,")
-
-
 local Section = Tab:AddSection({
 	Name = "Other Guis"
 })
@@ -448,6 +443,12 @@ Tab:AddToggle({
 	end
 end    
 })
+
+local Section = Tab:AddSection({
+	Name = "Supported Games List"
+})
+
+Tab:AddParagraph("Supported Games List","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday,")
 
 local Tab = Window:MakeTab({
 	Name = "Credits",
