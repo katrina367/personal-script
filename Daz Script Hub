@@ -7,7 +7,7 @@ getgenv().SpamTP = false
 getgenv().TeleportStatus = Adaptive
 getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
-
+getgenv().jump = false
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
@@ -79,7 +79,7 @@ Tab:AddBind({
 	Default = Enum.KeyCode.E,
 	Hold = true,
 	Callback = function()
-		while true do
+		while getgenv().jump == true do
 			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			wait()
 		end
