@@ -213,6 +213,8 @@ Tab:AddButton({
 Tab:AddButton({
 	Name = "Teleport Back",
 	Callback = function()
+		p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
+		wait(7)
 		p1.CFrame = pos
   	end    
 })
