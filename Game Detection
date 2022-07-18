@@ -1,3 +1,5 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
 if game.PlaceId == 3233893879 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: Bad Business, Is Supported,",
