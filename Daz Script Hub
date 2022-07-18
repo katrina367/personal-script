@@ -77,7 +77,7 @@ Tab:AddButton({
 Tab:AddBind({
 	Name = "Infinite Jump",
 	Default = Enum.KeyCode.E,
-	Hold = true,
+	Hold = false,
 	Callback = function()
 		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 	end    
