@@ -14,7 +14,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
-	Content = "Daz Script Hub  is Loading",
+	Content = "Daz Script Hub is Loading",
 	Image = "rbxassetid://8226141461",
 	Time = 5.5
 })
@@ -77,7 +77,7 @@ Tab:AddButton({
 Tab:AddBind({
 	Name = "Infinite Jump",
 	Default = Enum.KeyCode.E,
-	Hold = false,
+	Hold = true,
 	Callback = function()
 		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 	end    
