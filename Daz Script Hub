@@ -8,6 +8,8 @@ getgenv().TeleportStatus = Adaptive
 getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 OrionLib:MakeNotification({
@@ -77,7 +79,6 @@ Tab:AddBind({
 	Default = Enum.KeyCode.E,
 	Hold = true,
 	Callback = function()
-		local humanoid = game.Players.LocalPlayer.Character.Humanoid
 		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 	end    
 })
