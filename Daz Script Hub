@@ -81,6 +81,7 @@ Tab:AddBind({
 	Callback = function()
 		while true do
 			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			wait()
 		end
 	end    
 })
