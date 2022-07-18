@@ -65,6 +65,22 @@ local Section = Tab:AddSection({
 	Name = "Player Options"
 })
 
+Tab:AddButton({
+	Name = "Kill Player",
+	Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
+  	end    
+})
+
+Tab:AddBind({
+	Name = "Infinite Jump",
+	Default = Enum.KeyCode.E,
+	Hold = true,
+	Callback = function()
+		local humanoid = game.Players.LocalPlayer.Character.Humanoid
+		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end    
+})
 
 local Noclipping, Clip
 local plrw = game:GetService'Players'.LocalPlayer.Character
@@ -78,12 +94,6 @@ local function NoclipLoop()
     end
 end
 
-Tab:AddButton({
-	Name = "Player Suicide",
-	Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.Health = 0
-  	end    
-})
 
 Tab:AddToggle({
 	Name = "Noclip",
@@ -168,12 +178,24 @@ Tab:AddToggle({
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 				local p2 = getgenv().TeleportPlayer
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
 			wait()
 			end
 		end)
 	end
 end    
+})
+
+Tab:AddButton({
+	Name = "Teleport Bypass",
+	Callback = function()
+        local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+		local pl2 = getgenv().TeleportPlayer
+		local humanoid = game.Players.LocalPlayer.Character.Humanoid
+		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		wait(0.1)
+		pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
+  	end    
 })
 
 local a
