@@ -111,6 +111,10 @@ Tab:AddToggle({
 end    
 })
 
+local Section = Tab:AddSection({
+	Name = ""
+})
+
 Tab:AddSlider({
 	Name = "Walkspeed",
 	Min = 0,
