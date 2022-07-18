@@ -187,6 +187,7 @@ Tab:AddToggle({
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 				local p2 = getgenv().TeleportPlayer
+				local pos = p1.CFrame
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
 			wait()
 			end
@@ -206,6 +207,15 @@ Tab:AddButton({
 		pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
   	end    
 })
+
+
+Tab:AddButton({
+	Name = "Teleport Back",
+	Callback = function()
+		p1.CFrame = pos
+  	end    
+})
+
 
 local a
 
