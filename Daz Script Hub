@@ -78,10 +78,11 @@ Tab:AddBind({
 	Name = "Infinite Jump",
 	Default = Enum.KeyCode.E,
 	Hold = true,
-	Callback = function()
+	Callback = function(bool)
+	getgenv().jump = bool
 		while getgenv().jump == true do
 			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-			wait()
+			wait(0.1)
 		end
 	end    
 })
