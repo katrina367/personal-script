@@ -213,37 +213,37 @@ local dropdown = Tab:AddDropdown({
         getgenv().TeleportPlayer = v
     end    
 })
-game:GetService"Players".PlayerAdded:Connect(function()
-    local players = game:GetService"Players":GetChildren()
-    local PlayerList = {}
+			game:GetService"Players".PlayerAdded:Connect(function()
+				local players = game:GetService"Players":GetChildren()
+				local PlayerList = {}
 
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    dropdown:Refresh(PlayerList, true)
-    dropdown:Set(a)
-end)
-game:GetService"Players".PlayerRemoving:Connect(function()
-    wait(1)
-    local players = game.Players:GetChildren()
-    local PlayerList = {}
+				for i,v in pairs(players) do
+					table.insert(PlayerList,v.Name)
+				end
+				dropdown:Refresh(PlayerList, true)
+				dropdown:Set(a)
+			end)
+			game:GetService"Players".PlayerRemoving:Connect(function()
+				wait(1)
+				local players = game.Players:GetChildren()
+				local PlayerList = {}
 
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    dropdown:Refresh(PlayerList, true)
-    dropdown:Set(a)
-end)
-do
-    local players = game:GetService"Players":GetChildren()
-    local PlayerList = {}
+				for i,v in pairs(players) do
+					table.insert(PlayerList,v.Name)
+				end
+				dropdown:Refresh(PlayerList, true)
+				dropdown:Set(a)
+			end)
+			do
+				local players = game:GetService"Players":GetChildren()
+				local PlayerList = {}
 
-    for i,v in pairs(players) do
-        table.insert(PlayerList,v.Name)
-    end
-    dropdown:Refresh(PlayerList, true)
-    dropdown:Set(a)
-end
+				for i,v in pairs(players) do
+					table.insert(PlayerList,v.Name)
+				end
+				dropdown:Refresh(PlayerList, true)
+				dropdown:Set(a)
+			end
 
 
 local Tab = Window:MakeTab({
@@ -289,9 +289,8 @@ local Section = Tab:AddSection({
 
 Tab:AddButton({
 	Name = "Check if Game is Supported",
-	Callback = function(Value)    
+	Callback = function()    
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection', true))()
-
 	end
 })
 
