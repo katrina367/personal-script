@@ -8,7 +8,13 @@ getgenv().TeleportStatus = Adaptive
 getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 getgenv().jump = false
+--inf jump
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
+
+--teleport
+local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+local p2 = getgenv().TeleportPlayer
+local pos = p1.CFrame
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -175,8 +181,6 @@ local Section = Tab:AddSection({
 	Name = "Player Teleport"
 })
 
-
-
 Tab:AddToggle({
 	Name = "Teleport Player Toggle",
 	Default = false,
@@ -185,9 +189,6 @@ Tab:AddToggle({
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
-				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = getgenv().TeleportPlayer
-				local pos = p1.CFrame
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
 			wait()
 			end
