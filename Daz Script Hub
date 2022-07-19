@@ -9,14 +9,11 @@ getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 getgenv().jump = false
 getgenv().Swim = false
+getgenv().ClientGrave = Adaptive
 --inf jump, swim
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
---lmao
-
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-
-local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
@@ -34,8 +31,6 @@ OrionLib:MakeNotification({
 	Time = 3.5
 })
 
-wait(0.5)
-
 OrionLib:MakeNotification({
 	Name = "Pregress (2/3)",
 	Content = "LOADING..",
@@ -45,6 +40,8 @@ OrionLib:MakeNotification({
 
 wait(0.5)
 
+
+
 OrionLib:MakeNotification({
 	Name = "Progress (3/3)",
 	Content = "INITIATING LAUNCH..",
@@ -52,15 +49,18 @@ OrionLib:MakeNotification({
 	Time = 2.5
 })
 
-wait(5)
+wait(2)
 
 OrionLib:MakeNotification({
 	Name = "Success!",
 	Content = "Made By daz. Special thanks to Jacko.",
 	Image = "rbxassetid://9715044824",
-	Time = 20
+	Time = 10
 })
 
+wait(3)
+
+local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "Player Settings",
@@ -73,12 +73,13 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddToggle({
-	Name = "Force Character Swim (fly substitute 😭😭)",
+	Name = "Force Character Swim",
 	Default = false,
 	Callback = function(bool)
-	getgenv().Swim = bool
-		if bool then		
-			humanoid:ChangeState(Enum.HumanoidStateType.Swimming)		
+		getgenv().Swim = bool
+		while getgenv().Swim == true do
+			humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+			wait()	
 		end
 	end    
 })
@@ -108,8 +109,8 @@ Tab:AddToggle({
             if Noclipping then
               Noclipping:Disconnect()
             end
-          end
-end    
+    	end
+	end    
 })
 
 Tab:AddSlider({
@@ -157,6 +158,7 @@ Tab:AddSlider({
 end    
 })
 
+wait(0.5)
 
 
 local Tab = Window:MakeTab({
@@ -168,6 +170,7 @@ local Tab = Window:MakeTab({
 local Section = Tab:AddSection({
 	Name = "Player Teleport"
 })
+
 
 --teleport
 
@@ -226,39 +229,38 @@ local dropdown = Tab:AddDropdown({
         getgenv().TeleportPlayer = v
     end    
 })
-			game:GetService"Players".PlayerAdded:Connect(function()
-				local players = game:GetService"Players":GetChildren()
-				local PlayerList = {}
 
-				for i,v in pairs(players) do
-					table.insert(PlayerList,v.Name)
-				end
-				dropdown:Refresh(PlayerList, true)
-				dropdown:Set(a)
-			end)
-			game:GetService"Players".PlayerRemoving:Connect(function()
-				wait(1)
-				local players = game.Players:GetChildren()
-				local PlayerList = {}
+game:GetService"Players".PlayerAdded:Connect(function()
+	local players = game:GetService"Players":GetChildren()
+	local PlayerList = {}
 
-				for i,v in pairs(players) do
-					table.insert(PlayerList,v.Name)
-				end
-				dropdown:Refresh(PlayerList, true)
-				dropdown:Set(a)
-			end)
-			do
-				local players = game:GetService"Players":GetChildren()
-				local PlayerList = {}
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end)
+game:GetService"Players".PlayerRemoving:Connect(function()
+	wait(1)
+	local players = game.Players:GetChildren()
+	local PlayerList = {}
 
-				for i,v in pairs(players) do
-					table.insert(PlayerList,v.Name)
-				end
-				dropdown:Refresh(PlayerList, true)
-				dropdown:Set(a)
-			end
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end)
+do
+	local players = game:GetService"Players":GetChildren()
+	local PlayerList = {}
 
-
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end
 
 local Tab = Window:MakeTab({
 	Name = "Supported",
@@ -440,6 +442,12 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddButton({
+	Name = "Anti Afk",
+	Callback = function(Value)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()  	end    
+})
+
 Tab:AddBind({
 	Name = "Infinite Jump",
 	Default = Enum.KeyCode.Q,
@@ -505,6 +513,22 @@ Tab:AddToggle({
 end    
 })
 
+Tab:AddSlider({
+	Name = "Client Sided Gravity Change",
+	Min = 0,
+	Max = 400,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(bool)
+	getgenv().ClientGrav = bool
+	if bool then
+		game.Workspace.Gravity = bool
+	end
+end    
+})
+
 local Section = Tab:AddSection({
 	Name = "Supported Games List"
 })
@@ -520,7 +544,7 @@ local Tab = Window:MakeTab({
 Tab:AddParagraph("Thank You to Everyone That Helped","Scrumptious - Thanks for the Walkspeed Script, Jacko - Script Tester, HyperNova - Helped fix errors within my trash coding, Last but not least wYn for his epic tutorials :)")
 
 Tab:AddButton({
-	Name = "Kill Player",
+	Name = "Destroy UI",
 	Callback = function(Value)
         OrionLib:Destroy()
   	end    
