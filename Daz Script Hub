@@ -8,12 +8,15 @@ getgenv().TeleportStatus = Adaptive
 getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 getgenv().jump = false
---inf jump
+getgenv().Swim = false
+--inf jump, swim
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
 
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
@@ -49,7 +52,7 @@ OrionLib:MakeNotification({
 	Time = 2.5
 })
 
-wait(3)
+wait(5)
 
 OrionLib:MakeNotification({
 	Name = "Success!",
@@ -58,7 +61,6 @@ OrionLib:MakeNotification({
 	Time = 20
 })
 
-local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "Player Settings",
@@ -70,22 +72,13 @@ local Section = Tab:AddSection({
 	Name = "Player Options"
 })
 
-Tab:AddButton({
-	Name = "Kill Player",
-	Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.Health = 0
-  	end    
-})
-
-Tab:AddBind({
-	Name = "Infinite Jump",
-	Default = Enum.KeyCode.E,
-	Hold = true,
+Tab:AddToggle({
+	Name = "Force Character Swim (fly substitute 😭😭)",
+	Default = false,
 	Callback = function(bool)
-	getgenv().jump = bool
-		while getgenv().jump == true do
-			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-			wait(0.1)
+	getgenv().Swim = bool
+		if bool then		
+			humanoid:ChangeState(Enum.HumanoidStateType.Swimming)		
 		end
 	end    
 })
@@ -117,10 +110,6 @@ Tab:AddToggle({
             end
           end
 end    
-})
-
-local Section = Tab:AddSection({
-	Name = ""
 })
 
 Tab:AddSlider({
@@ -168,6 +157,8 @@ Tab:AddSlider({
 end    
 })
 
+
+
 local Tab = Window:MakeTab({
 	Name = "Teleports",
 	Icon = "rbxassetid://6723742952",
@@ -180,7 +171,6 @@ local Section = Tab:AddSection({
 
 --teleport
 
-
 Tab:AddToggle({
 	Name = "Teleport Player Toggle",
 	Default = false,
@@ -191,7 +181,6 @@ Tab:AddToggle({
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 				local p2 = getgenv().TeleportPlayer
-				local pos = p1.CFrame
 				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
 			wait()
 			end
@@ -212,7 +201,7 @@ Tab:AddButton({
   	end    
 })
 
-
+--[[
 Tab:AddButton({
 	Name = "Teleport Back",
 	Callback = function()
@@ -224,7 +213,7 @@ Tab:AddButton({
 		p1.CFrame = pos
   	end    
 })
-
+]]
 
 local a
 
@@ -268,6 +257,7 @@ local dropdown = Tab:AddDropdown({
 				dropdown:Refresh(PlayerList, true)
 				dropdown:Set(a)
 			end
+
 
 
 local Tab = Window:MakeTab({
@@ -450,12 +440,33 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddBind({
+	Name = "Infinite Jump",
+	Default = Enum.KeyCode.Q,
+	Hold = true,
+	Callback = function(bool)
+	getgenv().jump = bool
+		while getgenv().jump == true do
+			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			wait(0.1)
+		end
+	end    
+})
+
+
+Tab:AddButton({
+	Name = "Kill Player",
+	Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
+  	end    
+})
+
 local Section = Tab:AddSection({
 	Name = "Rejoins"
 })
 
 Tab:AddToggle({
-	Name = "[WORKING] Rejoin Same Server",
+	Name = "Rejoin Same Server",
 	Default = false,
 	Callback = function(bool)
 	getgenv().RejoinSame = bool
@@ -474,7 +485,7 @@ end
 })
 
 Tab:AddToggle({
-	Name = "[WORKING] Rejoin Different Server",
+	Name = "Rejoin Different Server",
 	Default = false,
 	Callback = function(bool)
 	getgenv().RejoinDiff = bool
@@ -507,5 +518,12 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddParagraph("Thank You to Everyone That Helped","Scrumptious - Thanks for the Walkspeed Script, Jacko - Script Tester, HyperNova - Helped fix errors within my trash coding, Last but not least wYn for his epic tutorials :)")
+
+Tab:AddButton({
+	Name = "Kill Player",
+	Callback = function(Value)
+        OrionLib:Destroy()
+  	end    
+})
 
 OrionLib:Init()
