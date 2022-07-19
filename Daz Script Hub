@@ -40,8 +40,6 @@ OrionLib:MakeNotification({
 
 wait(0.5)
 
-
-
 OrionLib:MakeNotification({
 	Name = "Progress (3/3)",
 	Content = "INITIATING LAUNCH..",
@@ -157,9 +155,6 @@ Tab:AddSlider({
 	end
 end    
 })
-
-wait(0.5)
-
 
 local Tab = Window:MakeTab({
 	Name = "Teleports",
@@ -429,6 +424,13 @@ Tab:AddButton({
   	end    
 })
 
+
+Tab:AddButton({
+	Name = "Anti Afk",
+	Callback = function(Value)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()  	end    
+})
+
 Tab:AddButton({
 	Name = "Owl Hub (ESP, AIMBOT)",
 	Callback = function(Value)
@@ -440,12 +442,6 @@ local Tab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://9405931578",
 	PremiumOnly = false
-})
-
-Tab:AddButton({
-	Name = "Anti Afk",
-	Callback = function(Value)
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()  	end    
 })
 
 Tab:AddBind({
@@ -517,7 +513,7 @@ Tab:AddSlider({
 	Name = "Client Sided Gravity Change",
 	Min = 0,
 	Max = 400,
-	Default = 50,
+	Default = 196,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Gravity",
