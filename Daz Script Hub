@@ -12,7 +12,7 @@ getgenv().Swim = false
 --inf jump, swim
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
-
+--lmao
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
