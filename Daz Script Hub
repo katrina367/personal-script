@@ -109,6 +109,7 @@ local Section = Tab:AddSection({
 	Name = "Player Movement"
 })
 
+
 local Path = game.Players.LocalPlayer.Character.Humanoid
 local hook
 hook = hookmetamethod(game, "__index", function(self, ...)
@@ -117,6 +118,7 @@ hook = hookmetamethod(game, "__index", function(self, ...)
 	end
 return hook(self,...)
 end)
+
 
 
 Tab:AddSlider({
@@ -128,6 +130,7 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Walkspeed",
 	Callback = function(bool)
+	getgenv().WalkSpeed = bool
 	if bool then
 		Path.WalkSpeed = bool
         wait(0.1)
