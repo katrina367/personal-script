@@ -9,9 +9,12 @@ getgenv().TeleportPlayer = Adaptive
 getgenv().Noclip = false
 getgenv().jump = false
 getgenv().Swim = false
-getgenv().ClientGrave = Adaptive
---inf jump, swim
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
+getgenv().ClientGrav = Adaptive
+
+repeat wait() until game:WaitForChild"Players"
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+v:Disable()
+end
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
@@ -30,6 +33,8 @@ OrionLib:MakeNotification({
 	Image = "rbxassetid://6386003052",
 	Time = 3.5
 })
+
+wait(0.5)
 
 OrionLib:MakeNotification({
 	Name = "Pregress (2/3)",
@@ -76,8 +81,50 @@ Tab:AddToggle({
 	Callback = function(bool)
 		getgenv().Swim = bool
 		while getgenv().Swim == true do
-			humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
-			wait()	
+			local plr = game:GetService("Players").LocalPlayer
+			local char = plr.Character
+			local hum = char.Humanoid
+			workspace.Gravity = 0
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+			wait()
+		end
+
+		if not getgenv().Swim == true then
+		workspace.Gravity = 198.2
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+		wait()
 		end
 	end    
 })
@@ -124,20 +171,18 @@ Tab:AddSlider({
 	if bool then
 		local Path = game.Players.LocalPlayer.Character.Humanoid
 		local hook
-
-		hook = hookmetamethod(game, "__index", function(self, ...)
-    		if self == Path and ... == "WalkSpeed" then
-        		return 16
-    		end
-		return hook(self,...)
-		end)
-
-
 		Path.WalkSpeed = bool
         wait(0.1)
 	end
 end    
 })
+
+hook = hookmetamethod(game, "__index", function(self, ...)
+	if self == Path and ... == "WalkSpeed" then
+		return 16
+	end
+return hook(self,...)
+end)
 
 Tab:AddSlider({
 	Name = "JumpPower",
@@ -199,7 +244,7 @@ Tab:AddButton({
   	end    
 })
 
---[[
+
 Tab:AddButton({
 	Name = "Teleport Back",
 	Callback = function()
@@ -207,11 +252,11 @@ Tab:AddButton({
 		local p2 = getgenv().TeleportPlayer
 		local pos = p1.CFrame
 		p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
-		wait(2)
+		wait(1)
 		p1.CFrame = pos
   	end    
 })
-]]
+
 
 local a
 
@@ -424,12 +469,14 @@ Tab:AddButton({
   	end    
 })
 
-
+--[[
 Tab:AddButton({
 	Name = "Anti Afk",
 	Callback = function(Value)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()  	end    
 })
+]]
+
 
 Tab:AddButton({
 	Name = "Owl Hub (ESP, AIMBOT)",
@@ -451,6 +498,7 @@ Tab:AddBind({
 	Callback = function(bool)
 	getgenv().jump = bool
 		while getgenv().jump == true do
+			local humanoid = game.Players.LocalPlayer.Character.Humanoid
 			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			wait(0.1)
 		end
@@ -545,5 +593,7 @@ Tab:AddButton({
         OrionLib:Destroy()
   	end    
 })
+
+Tab:AddLabel("Anti Afk Built in")
 
 OrionLib:Init()
