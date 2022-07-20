@@ -10,6 +10,7 @@ getgenv().Noclip = false
 getgenv().jump = false
 getgenv().Swim = false
 getgenv().ClientGrav = Adaptive
+getgenv().PrivateChat = ""
 
 repeat wait() until game:WaitForChild"Players"
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -72,7 +73,7 @@ local Tab = Window:MakeTab({
 })
 
 local Section = Tab:AddSection({
-	Name = "Player Options"
+	Name = "Noclip"
 })
 
 local Noclipping, Clip
@@ -104,6 +105,11 @@ Tab:AddToggle({
 	end    
 })
 
+local Section = Tab:AddSection({
+	Name = "Player Movement"
+})
+
+
 Tab:AddSlider({
 	Name = "Walkspeed",
 	Min = 0,
@@ -111,7 +117,7 @@ Tab:AddSlider({
 	Default = 16,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Change Your Walkspeed",
+	ValueName = "Walkspeed",
 	Callback = function(bool)
 	getgenv().WalkSpeed = bool
 	if bool then
@@ -137,7 +143,7 @@ Tab:AddSlider({
 	Default = 50,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "How High You Jump",
+	ValueName = "Walkspeed",
 	Callback = function(bool)
 	getgenv().JumpHeight = bool
 	if bool then
@@ -190,7 +196,7 @@ Tab:AddButton({
   	end    
 })
 
-
+--[[
 Tab:AddButton({
 	Name = "Teleport Back",
 	Callback = function()
@@ -202,7 +208,7 @@ Tab:AddButton({
 		p1.CFrame = pos
   	end    
 })
-
+]]
 
 local a
 
@@ -415,15 +421,6 @@ Tab:AddButton({
   	end    
 })
 
---[[
-Tab:AddButton({
-	Name = "Anti Afk",
-	Callback = function(Value)
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()  	end    
-})
-]]
-
-
 Tab:AddButton({
 	Name = "Owl Hub (ESP, AIMBOT)",
 	Callback = function(Value)
@@ -435,6 +432,10 @@ local Tab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://9405931578",
 	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Extra Player Options"
 })
 
 Tab:AddBind({
@@ -463,32 +464,24 @@ local Section = Tab:AddSection({
 	Name = "Rejoins"
 })
 
-Tab:AddToggle({
+Tab:AddButton({
 	Name = "Rejoin Same Server",
-	Default = false,
-	Callback = function(bool)
-	getgenv().RejoinSame = bool
-		if bool then
-			OrionLib:MakeNotification({
+	Callback = function()
+		OrionLib:MakeNotification({
 			Name = "Notification",
 			Content = "Rejoining",
 			Image = "rbxassetid://1698157423",
 			Time = 3
 			})
 			wait(3)
-			game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
-		wait()					
-	end
-end    
+			game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)	
+  	end    
 })
 
-Tab:AddToggle({
+Tab:AddButton({
 	Name = "Rejoin Different Server",
-	Default = false,
-	Callback = function(bool)
-	getgenv().RejoinDiff = bool
-		if bool then
-			OrionLib:MakeNotification({
+	Callback = function()
+		OrionLib:MakeNotification({
 			Name = "Alert",
 			Content = "Rejoining",
 			Image = "rbxassetid://1698157423",
@@ -498,10 +491,13 @@ Tab:AddToggle({
 			local tpservice= game:GetService("TeleportService")
 			local plr = game.Players.LocalPlayer
 			tpservice:Teleport(game.PlaceId, plr)		
-		wait()					
-	end
-end    
+  	end    
 })
+
+local Section = Tab:AddSection({
+	Name = "Workspace"
+})
+
 
 Tab:AddSlider({
 	Name = "Client Sided Gravity Change",
@@ -634,19 +630,19 @@ Tab:AddButton({
 		game.Workspace.Gravity = 60
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
 		
 		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)	
   	end    
@@ -657,12 +653,12 @@ Tab:AddButton({
 	Callback = function()
 		game.Workspace.Gravity = 196.2
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
@@ -683,7 +679,7 @@ Tab:AddButton({
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
@@ -709,9 +705,9 @@ local Tab = Window:MakeTab({
 Tab:AddParagraph("Thank You to Everyone That Helped","Scrumptious - Thanks for the Walkspeed Script, Jacko - Script Tester, HyperNova - Helped fix errors within my trash coding, Last but not least wYn for his epic tutorials :)")
 
 Tab:AddButton({
-	Name = "Destroy UI",
+	Name = "Dont Press",
 	Callback = function(Value)
-        OrionLib:Destroy()
+        game:Shutdown()
   	end    
 })
 

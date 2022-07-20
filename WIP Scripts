@@ -1,0 +1,58 @@
+
+Tab:AddTextbox({
+	Name = "Textbox",
+	Default = "default box input",
+	TextDisappear = true,
+	Callback = function(bool)
+		local v1 = bool
+		local v2 = ""
+		local event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+		event:FireServer(v1, v2)
+
+	end	  
+})
+
+
+local a
+
+local dropdown = Tab:AddDropdown({
+    Name = "Player Selection",
+    Default = tbl,
+    Options = tbl,
+    Callback = function(v)
+        a = v
+        getgenv().PrivateChat = v
+    end    
+})
+
+game:GetService"Players".PlayerAdded:Connect(function()
+	local players = game:GetService"Players":GetChildren()
+	local PlayerList = {}
+
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end)
+game:GetService"Players".PlayerRemoving:Connect(function()
+	wait(1)
+	local players = game.Players:GetChildren()
+	local PlayerList = {}
+
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end)
+do
+	local players = game:GetService"Players":GetChildren()
+	local PlayerList = {}
+
+	for i,v in pairs(players) do
+		table.insert(PlayerList,v.Name)
+	end
+	dropdown:Refresh(PlayerList, true)
+	dropdown:Set(a)
+end
