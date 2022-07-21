@@ -11,6 +11,7 @@ getgenv().jump = false
 getgenv().Swim = false
 getgenv().ClientGrav = Adaptive
 getgenv().PrivateChat = ""
+getgenv().time = true
 
 repeat wait() until game:WaitForChild"Players"
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -179,7 +180,7 @@ Tab:AddToggle({
 			while SpamTP == bool do
 				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 				local p2 = getgenv().TeleportPlayer
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame		
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame	
 			wait()
 			end
 		end)
@@ -518,6 +519,14 @@ Tab:AddSlider({
 end    
 })
 
+local TotalTime = 3
+spawn(function()
+	while wait(1) do
+		TotalTime = TotalTime + 1
+		print('You Have Been in This Game for ',TotalTime)
+	end
+end)
+
 local Section = Tab:AddSection({
 	Name = "Supported Games List"
 })
@@ -613,7 +622,7 @@ Tab:AddButton({
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
@@ -633,7 +642,7 @@ Tab:AddButton({
 		game.Workspace.Gravity = 60
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
 		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
@@ -705,6 +714,9 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+
+
+
 Tab:AddParagraph("Thank You to Everyone That Helped","Scrumptious - Thanks for the Walkspeed Script, Jacko - Script Tester, HyperNova - Helped fix errors within my trash coding, Last but not least wYn for his epic tutorials :)")
 
 Tab:AddButton({
@@ -714,6 +726,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddLabel("Anti Afk Built in")
+Tab:AddLabel("Anti Afk Built In")
 
 OrionLib:Init()
