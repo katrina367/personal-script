@@ -110,16 +110,16 @@ local Section = Tab:AddSection({
 	Name = "Player Movement"
 })
 
-
-local Path = game.Players.LocalPlayer.Character.Humanoid
-local hook
-hook = hookmetamethod(game, "__index", function(self, ...)
-	if self == Path and ... == "WalkSpeed" then
-		return 16
-	end
-return hook(self,...)
-end)
-
+while wait(1) do
+	local Path = game.Players.LocalPlayer.Character.Humanoid
+	local hook
+	hook = hookmetamethod(game, "__index", function(self, ...)
+		if self == Path and ... == "WalkSpeed" then
+			return 16
+		end
+	return hook(self,...)
+	end)
+end
 
 
 Tab:AddSlider({
@@ -131,7 +131,6 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Walkspeed",
 	Callback = function(bool)
-	getgenv().WalkSpeed = bool
 	if bool then
 		Path.WalkSpeed = bool
         wait(0.1)
@@ -430,6 +429,15 @@ Tab:AddButton({
 	Callback = function(Value)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
   	end    
+})
+
+Tab:AddButton({
+	Name = "FullBright",
+	Callback = function(Value)
+		game.Lighting.GlobalShadows = true
+		game.Lighting.Ambient = Color3.new(1,1,1)
+		game.Lighting.FogEnd = 1000000
+	end    
 })
 
 local Tab = Window:MakeTab({
