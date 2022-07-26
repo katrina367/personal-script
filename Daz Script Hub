@@ -1,17 +1,14 @@
-getgenv().WalkSpeed = 16
-getgenv().JumpHeight = 50
-getgenv().RejoinSame = false
-getgenv().RejoinDiff = false
-getgenv().Suicide = false
-getgenv().SpamTP = false
-getgenv().TeleportStatus = Adaptive
-getgenv().TeleportPlayer = Adaptive
-getgenv().Noclip = false
-getgenv().jump = false
-getgenv().Swim = false
-getgenv().ClientGrav = Adaptive
-getgenv().PrivateChat = ""
-getgenv().time = true
+local WalkSpeed = 16
+local JumpHeight = 50
+local RejoinSame = false
+local RejoinDiff = false
+local Suicide = false
+local SpamTP = false
+local TeleportPlayer = Adaptive
+local Noclip = false
+local jump = false
+local Swim = false
+local ClientGrav = 196.2
 
 repeat wait() until game:WaitForChild"Players"
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -77,23 +74,24 @@ local Section = Tab:AddSection({
 	Name = "Noclip"
 })
 
+
 local Noclipping, Clip
 local plrw = game:GetService'Players'.LocalPlayer.Character
-local function NoclipLoop()
-    if Clip == false    then
-        for _, child in pairs(plrw:GetDescendants()) do
-            if child:IsA("BasePart") and child.CanCollide == true then
-                child.CanCollide = false
-            end
-        end
-    end
-end
-
 
 Tab:AddToggle({
 	Name = "Noclip",
 	Default = false,
 	Callback = function(toggleval)
+		local function NoclipLoop()
+			if Clip == false    then
+				for _, child in pairs(plrw:GetDescendants()) do
+					if child:IsA("BasePart") and child.CanCollide == true then
+						child.CanCollide = false
+					end
+				end
+			end
+		end
+
         if toggleval then
             Clip = false
             Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
@@ -110,16 +108,7 @@ local Section = Tab:AddSection({
 	Name = "Player Movement"
 })
 
-while wait(1) do
-	local Path = game.Players.LocalPlayer.Character.Humanoid
-	local hook
-	hook = hookmetamethod(game, "__index", function(self, ...)
-		if self == Path and ... == "WalkSpeed" then
-			return 16
-		end
-	return hook(self,...)
-	end)
-end
+
 
 
 Tab:AddSlider({
@@ -130,7 +119,16 @@ Tab:AddSlider({
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Walkspeed",
-	Callback = function(bool)
+	Callback = function(bool)	
+	local Path = game.Players.LocalPlayer.Character.Humanoid
+	local hook
+	hook = hookmetamethod(game, "__index", function(self, ...)
+		if self == Path and ... == "WalkSpeed" then
+			return 16
+		end
+	return hook(self,...)
+	end)
+
 	if bool then
 		Path.WalkSpeed = bool
         wait(0.1)
@@ -148,7 +146,6 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Walkspeed",
 	Callback = function(bool)
-	getgenv().JumpHeight = bool
 	if bool then
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
         wait(0.1)
@@ -173,7 +170,7 @@ Tab:AddToggle({
 	Name = "Teleport Player Toggle",
 	Default = false,
 	Callback = function(bool)
-	getgenv().SpamTP = bool
+	SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
@@ -191,7 +188,7 @@ Tab:AddButton({
 	Name = "Teleport Bypass",
 	Callback = function()
         local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-		local pl2 = getgenv().TeleportPlayer
+		local pl2 = TeleportPlayer
 		local humanoid = game.Players.LocalPlayer.Character.Humanoid
 		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 		wait(0.1)
@@ -287,9 +284,9 @@ end
 AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui')
 AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-train/main/Eclipsehub.lua')
 AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua")
-AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421")
-AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua")
-AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua")
+AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421") --psx
+AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua") --scan test
+AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua") --funky friday
 AddGame(537413528,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 AddGame(286090429,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
 AddGame(3233893879,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
@@ -298,10 +295,19 @@ local Section = Tab:AddSection({
 	Name = "Game Support"
 })
 
-
 Tab:AddButton({
-	Name = "Check if Game is Supported",
-	Callback = function()    
+	Name = "Button!",
+	Callback = function()
+		if game.PlaceId == 672287643 then
+			OrionLib:MakeNotification({
+			Name = "You Found The Owners Game,",
+			Content = "Nice",
+			Image = "rbxassetid://4335489513",
+			Time = 10
+			})
+		end
+		
+
 		if game.PlaceId == 3233893879 then
 			OrionLib:MakeNotification({
 			Name = "Your Game: Bad Business, Is Supported,",
@@ -398,8 +404,8 @@ Tab:AddButton({
 			Image = "rbxassetid://4335489513",
 			Time = 10
 		})
-		end	 	
-	end
+		end
+	end    
 })
 
 Tab:AddButton({
@@ -455,8 +461,8 @@ Tab:AddBind({
 	Default = Enum.KeyCode.Q,
 	Hold = true,
 	Callback = function(bool)
-	getgenv().jump = bool
-		while getgenv().jump == true do
+	jump = bool
+		while jump == true do
 			local humanoid = game.Players.LocalPlayer.Character.Humanoid
 			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			wait(0.1)
@@ -520,14 +526,17 @@ Tab:AddSlider({
 	Increment = 1,
 	ValueName = "Gravity",
 	Callback = function(bool)
-	getgenv().ClientGrav = bool
+	ClientGrav = bool
 	if bool then
 		game.Workspace.Gravity = bool
 	end
 end    
 })
 
-local TotalTime = 3
+Tab:AddLabel()
+
+
+local TotalTime = 1
 spawn(function()
 	while wait(1) do
 		TotalTime = TotalTime + 1

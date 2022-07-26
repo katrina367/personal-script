@@ -1,3 +1,13 @@
+if game.PlaceId == 672287643 then
+	OrionLib:MakeNotification({
+	Name = "You Found The Owners Game,",
+	Content = "Nice",
+	Image = "rbxassetid://4335489513",
+	Time = 10
+	})
+end
+
+
 if game.PlaceId == 3233893879 then
 	OrionLib:MakeNotification({
 	Name = "Your Game: Bad Business, Is Supported,",
@@ -94,4 +104,3 @@ if game.PlaceId == 6284583030 then
 	Image = "rbxassetid://4335489513",
 	Time = 10
 })
-end	 
