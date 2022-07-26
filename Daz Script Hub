@@ -280,10 +280,11 @@ local function AddGame(placeid, functioner)
     end
     table.insert(GameTable, InsertTable)
 end
-
-AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui')
-AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-train/main/Eclipsehub.lua')
-AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua")
+AddGame(8554378337,"https://raw.githubusercontent.com/ZaRdoOx/Ultra-Hub/main/Main") --weapon fighting simulator
+AddGame(5780309044,"https://raw.githubusercontent.com/muzrblx/nanocores/main/Loader/HubLoader.lua") --stands awakening
+AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui') --floppa games
+AddGame(142823291, 'https://raw.githubusercontent.com/fheahdythdr/legendary-train/main/Eclipsehub.lua') --mm2
+AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/KeySystemUI-Obfuscated.lua") --ms2
 AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421") --psx
 AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua") --scan test
 AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua") --funky friday

@@ -1,0 +1,146 @@
+getgenv().SLAPrange=25
+getgenv().SLAPdelay=0.3
+getgenv().KillstreakLEVEL=250
+getgenv().AntiRagdollEnabled=false
+getgenv().SLAPAURAenabled=false
+antiWSdetect=hookmetamethod(game,"__namecall",function(Self,...)if tostring(Self)=="WalkSpeedChanged"then return wait(9e9)end return antiWSdetect(Self,...)end)
+local library = loadstring(game:HttpGet"https://raw.githubusercontent.com/CatzCode/cattoware/main/libraries/ui.lua")()
+local Window =  library:CreateWindow("Slap Battles",Vector3.new(500,600,360))
+local Main_Tab = Window:CreateTab('Main')
+local SlapAuraSettings = Main_Tab:CreateSector("Slap Aura Settings","Left")
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+SlapAuraSettings:AddToggle("Slap Aura",false,function(Value)
+	getgenv().SLAPAURAenabled=Value
+	function REVERSE(char)
+		for i,v in next, char:GetDescendants() do
+			if v:IsA("SelectionBox") then
+				return true
+			end
+		end
+		return false
+	end
+	local function findSlapRemote()
+		local SlapTool = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
+		if SlapTool then
+			if tostring(OldSlapToolName)~=SlapTool.Name and SlapTool:FindFirstChild("LocalScript") then
+				getgenv().OldSlapToolName = SlapTool.Name
+				OldSlapToolScr  = decompile(SlapTool.LocalScript)
+				OldSlapToolScr  = OldSlapToolScr:gsub("decompiler%.","")
+				if string.match(OldSlapToolScr,"%. *.*:F") then
+					OldSlapToolScr	= string.match(OldSlapToolScr,"e__*.*%.*.*:F")
+					OldSlapToolScr	= OldSlapToolScr:gsub("e__*.*%.","")
+					OldSlapToolScr	= OldSlapToolScr:gsub(":F","")
+					getgenv().SlapEventName = OldSlapToolScr
+
+					return SlapEventName
+				end
+			else
+				return SlapEventName
+			end
+		end
+	end
+	local function Slap(char)
+		if findSlapRemote() then
+			print(findSlapRemote())
+			game.ReplicatedStorage:FindFirstChild(findSlapRemote()):FireServer(char)
+		end
+	end
+	while task.wait(SLAPdelay) and Value do
+		if not Value then break end
+		if not SLAPAURAenabled then break end
+		pcall(function()local_char=game.Players.LocalPlayer.Character;end)
+		if local_char and local_char:FindFirstChildWhichIsA("Tool") and local_char:FindFirstChild("HumanoidRootPart") then
+			for i,v in next, game:GetService("Players"):GetPlayers() do
+				if v.Name~=game:GetService("Players").LocalPlayer.Name then
+					local_hroot=local_char.HumanoidRootPart
+					local char=v.Character
+					if char and char:FindFirstChild("HumanoidRootPart") then
+						if char:FindFirstChild("Right Arm")and(char["Right Arm"].Position-local_hroot.Position).Magnitude<SLAPrange then
+							if SLAPreversecheck then
+								if not REVERSE(char) then
+									Slap(char["Right Arm"])
+								end
+							else
+								Slap(char["Right Arm"])
+							end
+						elseif char:FindFirstChild("Left Arm")and(char["Left Arm"].Position-local_hroot.Position).Magnitude<SLAPrange then
+							if SLAPreversecheck then
+								if not REVERSE(char) then
+									Slap(char["Left Arm"])
+								end
+							else
+								Slap(char["Left Arm"])
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+SlapAuraSettings:AddToggle("Reverse Check",false,function(Value)
+	getgenv().SLAPreversecheck=true
+end)
+SlapAuraSettings:AddSlider("Slap Aura Range", 5, SLAPrange, 53, false, function(Value)
+	getgenv().SLAPrange=Value
+end)
+SlapAuraSettings:AddSlider("Slap Aura Delay", 3, SLAPdelay*10, 10, false, function(Value)
+	getgenv().SLAPdelay=Value*10^-1
+end)
+local KillstreakSettings = Main_Tab:CreateSector("Killstreak Glove","Left")
+KillstreakSettings:AddButton("Set Killstreak Value",function()
+	KillstreakGlove=game.Players.LocalPlayer.Character:FindFirstChild("Killstreak")
+	if not KillstreakGlove then game.StarterGui:SetCore("SendNotification", {Title = "Octocum";Text = "Equip the Killstreak glove first!";Duration = 2;}) end
+	for i=1,KillstreakLEVEL do
+		game.Players.LocalPlayer.PlayerGui.Kills.TextLabel.Text = "Kills: " .. i;
+		game.Workspace.Sounds.Kill:Play();
+		game.ReplicatedStorage.KillsUpdated:FireServer(i,KillstreakGlove);
+	end
+end)
+KillstreakSettings:AddSlider("Set Kills", 1, KillstreakLEVEL, 250, false, function(Value)
+	getgenv().KillstreakLEVEL = Value
+end)
+KillstreakSettings:AddToggle("Loop Spam Yellow Screen",false,function(Value)
+    getgenv().KillstreakYellowScreen=Value
+    if not game.Players.LocalPlayer.Character:FindFirstChild("Killstreak") and Value == true then game.StarterGui:SetCore("SendNotification", {Title = "Octocum";Text = "Equip the Killstreak glove first!";Duration = 2;}) return end
+    if KillstreakYellowScreen then
+        for i=1,222 do
+            game.Players.LocalPlayer.PlayerGui.Kills.TextLabel.Text = "Kills: " .. i;
+            game.Workspace.Sounds.Kill:Play();
+            game.ReplicatedStorage.KillsUpdated:FireServer(i,game.Players.LocalPlayer.Character:FindFirstChild("Killstreak"))
+        end
+    end
+    while task.wait(2) do
+        if not game.Players.LocalPlayer.Character:FindFirstChild("Killstreak") and Value == true then game.StarterGui:SetCore("SendNotification", {Title = "Octocum";Text = "Killstreak glove unequipped.";Duration = 2;}) return end
+        if not KillstreakYellowScreen then break end
+        for i=1,222 do
+            game.Players.LocalPlayer.PlayerGui.Kills.TextLabel.Text = "Kills: " .. i;
+            game.Workspace.Sounds.Kill:Play();
+            game.ReplicatedStorage.KillsUpdated:FireServer(i,game.Players.LocalPlayer.Character:FindFirstChild("Killstreak"))
+        end
+	end
+end)
+
+local Misc = Main_Tab:CreateSector("Misc","Right")
+
+Misc:AddButton("Disable Mail Popups",function()
+	if mail_C then return end
+	local function delmailpopups()
+		for i,v in next,game.Players.LocalPlayer.PlayerGui:GetChildren() do
+			if v.Name=="MailPopup" then
+				v:Destroy()
+			end
+		end
+	end
+	delmailpopups()
+	local mail_C
+	mail_C=game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function()
+		delmailpopups()
+	end)
+end)
+Misc:AddButton("Nil Ragdoll Checking values",function(Value)
+	LocalPlayer.Character.isInArena:Destroy()
+	LocalPlayer.Character.IsInDefaultArena:Destroy()
+end)
