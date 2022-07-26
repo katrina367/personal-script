@@ -107,4 +107,3 @@ if game.PlaceId == 6284583030 then
 	Time = 10
 })
 end
-OrionLib:Init()
