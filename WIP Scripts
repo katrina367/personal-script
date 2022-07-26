@@ -1,11 +1,10 @@
-
 Tab:AddTextbox({
 	Name = "Textbox",
-	Default = "default box input",
+	Default = "h",
 	TextDisappear = true,
 	Callback = function(bool)
 		local v1 = bool
-		local v2 = ""
+		local v2 = getgenv().PrivateChat+''
 		local event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
 		event:FireServer(v1, v2)
 
