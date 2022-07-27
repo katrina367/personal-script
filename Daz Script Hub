@@ -280,6 +280,12 @@ local function AddGame(placeid, functioner)
     end
     table.insert(GameTable, InsertTable)
 end
+
+
+
+AddGame(6299805723,'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI') --anime fighters
+AddGame(8304191830,"https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures.lua") --anime adventures
+AddGame(6403373529,'https://raw.githubusercontent.com/katrina367/personal-script/main/Slap%20Battles') --slap battles
 AddGame(8554378337,"https://raw.githubusercontent.com/ZaRdoOx/Ultra-Hub/main/Main") --weapon fighting simulator
 AddGame(5780309044,"https://raw.githubusercontent.com/muzrblx/nanocores/main/Loader/HubLoader.lua") --stands awakening
 AddGame(9772878203, 'https://raw.githubusercontent.com/zReal-King/Raise-A-Floppa-2/main/Gui') --floppa games
@@ -288,20 +294,193 @@ AddGame(9551640993, "https://raw.githubusercontent.com/ExtremeAntonis/KeySystemU
 AddGame(6284583030, "https://rawscripts.net/raw/Project-Meow_421") --psx
 AddGame(9808430159,"https://raw.githubusercontent.com/zReal-King/Scan_Test.DEMO/main/View.lua") --scan test
 AddGame(6447798030,"https://raw.githubusercontent.com/wally-rblx/funky-friday-autoplay/main/main.lua") --funky friday
-AddGame(537413528,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
-AddGame(286090429,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
-AddGame(3233893879,"raw.githubusercontent.com/shlexware/Sirius/request/Loader")
+AddGame(537413528,"raw.githubusercontent.com/shlexware/Sirius/request/Loader") --BABFT
+AddGame(286090429,"raw.githubusercontent.com/shlexware/Sirius/request/Loader") --Arsenal
+AddGame(3233893879,"raw.githubusercontent.com/shlexware/Sirius/request/Loader") --Bad Business
 
 local Section = Tab:AddSection({
 	Name = "Game Support"
 })
 
 Tab:AddButton({
-	Name = "Detection",
+	Name = "Button!",
 	Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Game%20Detection'))
+			if game.PlaceId == 672287643 then
+				OrionLib:MakeNotification({
+				Name = "You Found The Owners Game,",
+				Content = "Nice",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 3233893879 then
+				OrionLib:MakeNotification({
+				Name = "Support,",
+				Content = "Your Game: Bad Business, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 286090429 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Arsenal, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 537413528 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: BABFT, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 6447798030 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Funky Friday, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 9808430159 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Scan Test, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			if game.PlaceId == 6872265039 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: BedWars, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+			
+			if game.PlaceId == 9772878203 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Raise a Floppa 2, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+			
+			if game.PlaceId == 142823291 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Murder Mystery 2, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+			
+			if game.PlaceId == 9551640993 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Mining Simulator 2, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+			
+			if game.PlaceId == 6284583030 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Pet Simulator X, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+
+			if game.PlaceId == 5780309044 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Stands Awakening, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+
+			if game.PlaceId == 6447798030 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Funky Friday, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+
+			if game.PlaceId == 8554378337 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Weapon Fighting Simulator, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+			
+			wait()
+
+			if game.PlaceId == 6403373529 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Slap Battles, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+
+			wait()
+
+			if game.PlaceId == 6299805723 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Anime Fighters, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
+
+			wait()
+			
+			if game.PlaceId == 8304191830 then
+				OrionLib:MakeNotification({
+				Name = "Support",
+				Content = "Your Game: Anime Adventures, Is Supported",
+				Image = "rbxassetid://4335489513",
+				Time = 10
+				})
+			end
 	end    
 })
+
+
 
 Tab:AddButton({
 	Name = "Activate External GUI",
@@ -443,7 +622,7 @@ local Section = Tab:AddSection({
 	Name = "Supported Games List"
 })
 
-Tab:AddParagraph("Supported Games List","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday,")
+Tab:AddParagraph("Supported Games List","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday, 10. Slap Battles, 11. Stands Awakened, 12. Anime Adventures, 13. Weapon Fighting Simulator, 14. Anime Fighters Simulator,")
 
 local Tab = Window:MakeTab({
 	Name = "Character",

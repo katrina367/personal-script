@@ -1,28 +1,12 @@
-Tab:AddTextbox({
-	Name = "Textbox",
-	Default = "h",
-	TextDisappear = true,
-	Callback = function(bool)
-		local v1 = bool
-		local v2 = getgenv().PrivateChat+''
-		local event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
-		event:FireServer(v1, v2)
-
-	end	  
-})
-
 
 local a
 
-local dropdown = Tab:AddDropdown({
-    Name = "Player Selection",
-    Default = tbl,
-    Options = tbl,
-    Callback = function(v)
-        a = v
-        getgenv().PrivateChat = v
-    end    
-})
+local drop = btns:Dropdown("Pick me!",{tbl}, function(v)
+    a = v
+    TeleportPlayer = v
+end)
+
+
 
 game:GetService"Players".PlayerAdded:Connect(function()
 	local players = game:GetService"Players":GetChildren()
@@ -31,8 +15,9 @@ game:GetService"Players".PlayerAdded:Connect(function()
 	for i,v in pairs(players) do
 		table.insert(PlayerList,v.Name)
 	end
-	dropdown:Refresh(PlayerList, true)
-	dropdown:Set(a)
+	drop:Clear(PlayerList,true)
+    drop:Add(a)
+
 end)
 game:GetService"Players".PlayerRemoving:Connect(function()
 	wait(1)
@@ -42,8 +27,8 @@ game:GetService"Players".PlayerRemoving:Connect(function()
 	for i,v in pairs(players) do
 		table.insert(PlayerList,v.Name)
 	end
-	dropdown:Refresh(PlayerList, true)
-	dropdown:Set(a)
+	drop:Clear(PlayerList,true)
+    drop:Add(a)
 end)
 do
 	local players = game:GetService"Players":GetChildren()
@@ -52,6 +37,6 @@ do
 	for i,v in pairs(players) do
 		table.insert(PlayerList,v.Name)
 	end
-	dropdown:Refresh(PlayerList, true)
-	dropdown:Set(a)
+    drop:Clear(PlayerList,true)
+    drop:Add(a)
 end
