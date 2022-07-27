@@ -123,9 +123,9 @@ local function FindName(name)
         local subbedname = string.sub(v.Name:lower(), 1, string.len(name))
         local subbeddisplayname = string.sub(v.DisplayName:lower(), 1, string.len(name))     
         if (subbedname == name) then
-            return tostring(v)
+            return v
         elseif (subbeddisplayname == name) then
-            return tostring(v)
+            return v
         end
     end
 end
@@ -133,10 +133,11 @@ end
 local Teleports = serv:Channel("Textboxes")
 
 Teleports:Textbox("Player Teleport", "Type Someones Username", true, function(box)
+    local plrh = game:GetService'Players'.LocalPlayer.Character.HumanoidRootPart
     local plrs = game:GetService'Players'
     local target = plrs[FindName(box)].Character.HumanoidRootPart
-    plrh.CFrame = target.CFrame    end
-)
+    plrh.CFrame = target.CFrame    
+end)
 
 
 -------------------------------------------------------------------------------------------------------------------------------
