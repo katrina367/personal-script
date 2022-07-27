@@ -12,31 +12,24 @@ local TotalTime = 1
 spawn(function()
 	while wait(1) do
 		TotalTime = TotalTime + 1
-		print('You Have Been in This Game for ',TotalTime)
 	end
 end)
 
---player options
+-------------------------------------------------------------------------------------------------------------------------------
+
 btns:Button("Kill Player", function()
     DiscordLib:Notification("Notification", "Killed  Player", ":(")
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end)
 
-btns:Button("Return To Defaults", function()
-    jump:Change(50)
-    walk:Change(16)
-end)
 
 btns:Seperator()
 
-
-local Noclipping, Clip
+local Noclipping, Clip = bool
 local plrw = game:GetService'Players'.LocalPlayer.Character
 
-btns:Toggle("Noclip",false, function(bool)
+btns:Toggle("Noclip [NOT WORKING HELP AAAA]",false, function(toggleval)
     local function NoclipLoop()
-        local Noclipping, Clip
-        local plrw = game:GetService'Players'.LocalPlayer.Character
         if Clip == false    then
             for _, child in pairs(plrw:GetDescendants()) do
                 if child:IsA("BasePart") and child.CanCollide == true then
@@ -45,19 +38,21 @@ btns:Toggle("Noclip",false, function(bool)
             end
         end
     end
-    
-    if bool then
+
+    if toggleval then
         Clip = false
         Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
-      else
+    else
         Clip = true
         if Noclipping then
-          Noclipping:Disconnect()
+            Noclipping:Disconnect()
         end
     end
 end)
 
 btns:Seperator()
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 local Path = game.Players.LocalPlayer.Character.Humanoid
 local hook
@@ -76,14 +71,22 @@ local walk = btns:Slider("Walkspeed", 0, 200, 16, function(bool)
 	end
 end)
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 local jump = btns:Slider("Jump Power", 0, 400, 50, function(bool)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = bool
 end)
 
+btns:Seperator()
 
---workspace
+-------------------------------------------------------------------------------------------------------------------------------
 
 local Workspace = serv:Channel("Workspace")
+
+local Gravity = Workspace:Slider("Client Gravity", 0, 300, 196.2, function(bool)
+    game.Workspace.Gravity = bool
+end)
+Workspace:Seperator()
 
 
 Workspace:Button("Rejoin Same Server", function()
@@ -91,6 +94,7 @@ Workspace:Button("Rejoin Same Server", function()
     wait(3)
     game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
     end)
+    Workspace:Seperator()
 
 Workspace:Button("Rejoin Different Server", function()
     DiscordLib:Notification("Success", "Rejoining", ":)")
@@ -99,10 +103,43 @@ Workspace:Button("Rejoin Different Server", function()
     local plr = game.Players.LocalPlayer
     tpservice:Teleport(game.PlaceId, plr)
 end)
+Workspace:Seperator()
+
+Workspace:Button("Destroy GUI", function()
+    game.CoreGui.Discord:Destroy()
+end)
+Workspace:Seperator()
+
+Workspace:Button("Return Gui To Default Settingas", function()
+    Gravity:Change(196)
+    jump:Change(50)
+    walk:Change(16)
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+local function FindName(name)
+    for _, v in next, game.Players:GetPlayers() do
+        local subbedname = string.sub(v.Name:lower(), 1, string.len(name))
+        local subbeddisplayname = string.sub(v.DisplayName:lower(), 1, string.len(name))     
+        if (subbedname == name) then
+            return tostring(v)
+        elseif (subbeddisplayname == name) then
+            return tostring(v)
+        end
+    end
+end
+
+local Teleports = serv:Channel("Textboxes")
+
+Teleports:Textbox("Player Teleport", "Type Someones Username", true, function(box)
+    local plrs = game:GetService'Players'
+    local target = plrs[FindName(box)].Character.HumanoidRootPart
+    plrh.CFrame = target.CFrame    end
+)
 
 
-
-
+-------------------------------------------------------------------------------------------------------------------------------
 
 local Character = serv:Channel("Character Settings")
 
@@ -266,16 +303,13 @@ Character:Button("Fall With Float Anim", function()
     game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Flying)
 end)
 
+-------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
+local lbls = serv:Channel("time test")
 
 local cringe = win:Server("Script Hubs", "rbxassetid://3019710362")
 
-local lbls = cringe:Channel("Scripts")
+local lbls = cringe:Channel("Scripts") 
 
 local GameTable = {
     {
@@ -341,7 +375,7 @@ lbls:Label("13. Weapon Fighting Simulator")
 lbls:Label("14. Anime Fighters Simulator")
 --lbls:Label("")
 
-
+-------------------------------------------------------------------------------------------------------------------------------
 
 local lbls = cringe:Channel("General Usage")
 
@@ -385,15 +419,17 @@ lbls:Button("Sirius Loader", function()
 end)
 lbls:Seperator()
 
-lbls:Button("Kill all", function()
-    DiscordLib:Notification("Notification", "Killed everyone!", "Okay!")
+lbls:Button("FullBright", function()
+    game.Lighting.GlobalShadows = true
+    game.Lighting.Ambient = Color3.new(1,1,1)
+    game.Lighting.FogEnd = 1000000
 end)
 
 
 
 
 
-
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 
