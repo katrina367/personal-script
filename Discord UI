@@ -334,7 +334,7 @@ local function AddGame(placeid, functioner)
 end
 
 
-
+AddGame(8349889591,"https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures.lua") -- anime adventures
 AddGame(6299805723,'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI') --anime fighters
 AddGame(8304191830,"https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures.lua") --anime adventures
 AddGame(6403373529,'https://raw.githubusercontent.com/katrina367/personal-script/main/Slap%20Battles') --slap battles

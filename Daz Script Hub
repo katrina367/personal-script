@@ -218,7 +218,7 @@ local dropdown = Tab:AddDropdown({
     Options = tbl,
     Callback = function(v)
         a = v
-        getgenv().TeleportPlayer = v
+        TeleportPlayer = v
     end    
 })
 
@@ -302,6 +302,7 @@ local Section = Tab:AddSection({
 	Name = "Game Support"
 })
 
+--[[
 Tab:AddButton({
 	Name = "Button!",
 	Callback = function()
@@ -477,10 +478,8 @@ Tab:AddButton({
 				Time = 10
 				})
 			end
-	end    
-})
 
-
+]]
 
 Tab:AddButton({
 	Name = "Activate External GUI",
@@ -614,7 +613,6 @@ local TotalTime = 1
 spawn(function()
 	while wait(1) do
 		TotalTime = TotalTime + 1
-		print('You Have Been in This Game for ',TotalTime)
 	end
 end)
 
