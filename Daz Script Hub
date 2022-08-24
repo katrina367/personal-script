@@ -196,13 +196,12 @@ Tab:AddToggle({
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
-                local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-                local pl2 = TeleportPlayer
-                local humanoid = game.Players.LocalPlayer.Character.Humanoid
-                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                wait(0.1)
-                pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
-			wait()
+                		local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+                		local pl2 = TeleportPlayer
+                		local humanoid = game.Players.LocalPlayer.Character.Humanoid
+                		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+               		 	wait(0.1)
+                		pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
 			end
 		end)
 	end
