@@ -1,3 +1,6 @@
+-- // Welcome to Daz's Script Hub
+-- // dont hate pls
+
 repeat wait() until game:WaitForChild"Players"
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
 v:Disable()
@@ -5,9 +8,11 @@ end
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
+-- // Notifications
+
 OrionLib:MakeNotification({
 	Name = "Loading Script hub..",
-	Content = "Daz Script Hub is Loading",
+	Content = "Project Daz is Loading",
 	Image = "rbxassetid://8226141461",
 	Time = 5.5
 })
@@ -24,7 +29,7 @@ OrionLib:MakeNotification({
 wait(0.5)
 
 OrionLib:MakeNotification({
-	Name = "Pregress (2/3)",
+	Name = "Progress (2/3)",
 	Content = "LOADING..",
 	Image = "rbxassetid://6386003052",
 	Time = 3
@@ -43,25 +48,42 @@ wait(2)
 
 OrionLib:MakeNotification({
 	Name = "Success!",
-	Content = "Made By daz. Special thanks to Jacko.",
+	Content = "Made by Daz",
 	Image = "rbxassetid://9715044824",
 	Time = 10
 })
 
 wait(3)
 
-local Window = OrionLib:MakeWindow({Name = "Daz's Script Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+-- \/\/\/\/\/\/\/\/\/
+-- // Orion Window
+--/\/\/\/\/\/\/\/\/\/
+
+local Window = OrionLib:MakeWindow({Name = "Project Daz", HidePremium = true, SaveConfig = false, ConfigFolder = "OrionTest"})
+
+-- \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+-- // Workspace Tab 
+-- // Holds Main Local And Player Scripts
+-- /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 local Tab = Window:MakeTab({
-	Name = "Player Settings",
-	Icon = "rbxassetid://9525535512",
+	Name = "Workspace",
+	Icon = "rbxassetid://6034798461",
 	PremiumOnly = false
 })
 
-local Section = Tab:AddSection({
-	Name = "Noclip"
+Tab:AddButton({
+	Name = "FullBright",
+	Callback = function(Value)
+		game.Lighting.GlobalShadows = true
+		game.Lighting.Ambient = Color3.new(1,1,1)
+		game.Lighting.FogEnd = 1000000
+	end    
 })
 
+local Section = Tab:AddSection({
+	Name = "Player"
+})
 
 local Noclipping, Clip
 local plrw = game:GetService'Players'.LocalPlayer.Character
@@ -92,44 +114,39 @@ Tab:AddToggle({
 	end    
 })
 
-local Section = Tab:AddSection({
-	Name = "Player Movement"
-})
-
-
-
+local w = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+local j = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+local g = game.Workspace.Gravity
 
 Tab:AddSlider({
 	Name = "Walkspeed",
 	Min = 0,
 	Max = 200,
-	Default = 16,
+	Default = w,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Walkspeed",
 	Callback = function(bool)	
 	local Path = game.Players.LocalPlayer.Character.Humanoid
 	local hook
-	hook = hookmetamethod(game, "__index", function(self, ...)
-		if self == Path and ... == "WalkSpeed" then
-			return 16
-		end
-	return hook(self,...)
-	end)
-
 	if bool then
 		Path.WalkSpeed = bool
-        wait(0.1)
 	end
 end    
 })
 
+hook = hookmetamethod(game, "__index", function(self, ...)
+    if self == Path and ... == "WalkSpeed" then
+        return 16
+    end
+return hook(self,...)
+end)    
 
 Tab:AddSlider({
 	Name = "JumpPower",
 	Min = 0,
 	Max = 400,
-	Default = 50,
+	Default = j,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Walkspeed",
@@ -141,6 +158,27 @@ Tab:AddSlider({
 end    
 })
 
+Tab:AddSlider({
+	Name = "Client Sided Gravity Change",
+	Min = 0,
+	Max = 400,
+	Default = g,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(bool)
+	ClientGrav = bool
+	if bool then
+		game.Workspace.Gravity = bool
+	end
+end    
+})
+
+--\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+-- // Teleports Tab
+-- // Has The Bring and Teleport Scripts
+--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 local Tab = Window:MakeTab({
 	Name = "Teleports",
 	Icon = "rbxassetid://6723742952",
@@ -151,37 +189,24 @@ local Section = Tab:AddSection({
 	Name = "Player Teleport"
 })
 
-
---teleport
-
 Tab:AddToggle({
 	Name = "Teleport Player Toggle",
 	Default = false,
 	Callback = function(bool)
-	SpamTP = bool
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
-				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-				local p2 = getgenv().TeleportPlayer
-				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame	
+                local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+                local pl2 = TeleportPlayer
+                local humanoid = game.Players.LocalPlayer.Character.Humanoid
+                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                wait(0.1)
+                pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
 			wait()
 			end
 		end)
 	end
 end    
-})
-
-Tab:AddButton({
-	Name = "Teleport Bypass",
-	Callback = function()
-        local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-		local pl2 = TeleportPlayer
-		local humanoid = game.Players.LocalPlayer.Character.Humanoid
-		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-		wait(0.1)
-		pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
-  	end    
 })
 
 --[[
@@ -198,6 +223,49 @@ Tab:AddButton({
 })
 ]]
 
+Tab:AddButton({
+	Name = "Bring Player (NEEDS TOOL)",
+	Callback = function()
+        Target = TeleportPlayer
+
+        NOW = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.Humanoid.Name = 1
+        local l = game.Players.LocalPlayer.Character["1"]:Clone()
+        l.Parent = game.Players.LocalPlayer.Character
+        l.Name = "Humanoid"
+        wait()
+        game.Players.LocalPlayer.Character["1"]:Destroy()
+        game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+        game.Players.LocalPlayer.Character.Animate.Disabled = true
+        wait()
+        game.Players.LocalPlayer.Character.Animate.Disabled = false
+        game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+        for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+        end
+        local function tp(player,player2)
+        local char1,char2=player.Character,player2.Character
+        if char1 and char2 then
+        char1.HumanoidRootPart.CFrame = char2.HumanoidRootPart.CFrame
+        end
+        end
+        local function getout(player,player2)
+        local char1,char2=player.Character,player2.Character
+        if char1 and char2 then
+        char1:MoveTo(char2.Head.Position)
+        end
+        end
+        tp(game.Players[Target], game.Players.LocalPlayer)
+        wait()
+        tp(game.Players[Target], game.Players.LocalPlayer)
+        wait()
+        getout(game.Players.LocalPlayer, game.Players[Target])
+        wait()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NOW
+        print('Bring Used On', TeleportPlayer)
+  	end    
+})
+
 local a
 
 local dropdown = Tab:AddDropdown({
@@ -207,6 +275,7 @@ local dropdown = Tab:AddDropdown({
     Callback = function(v)
         a = v
         TeleportPlayer = v
+        print('Selected Player:', TeleportPlayer)
     end    
 })
 
@@ -215,7 +284,7 @@ game:GetService"Players".PlayerAdded:Connect(function()
 	local PlayerList = {}
 
 	for i,v in pairs(players) do
-		table.insert(PlayerList,v.Name)
+		table.insert(PlayerList,v.DisplayName)
 	end
 	dropdown:Refresh(PlayerList, true)
 	dropdown:Set(a)
@@ -226,7 +295,7 @@ game:GetService"Players".PlayerRemoving:Connect(function()
 	local PlayerList = {}
 
 	for i,v in pairs(players) do
-		table.insert(PlayerList,v.Name)
+		table.insert(PlayerList,v.DisplayName)
 	end
 	dropdown:Refresh(PlayerList, true)
 	dropdown:Set(a)
@@ -236,14 +305,19 @@ do
 	local PlayerList = {}
 
 	for i,v in pairs(players) do
-		table.insert(PlayerList,v.Name)
+		table.insert(PlayerList,v.DisplayName)
 	end
 	dropdown:Refresh(PlayerList, true)
 	dropdown:Set(a)
 end
 
+-- \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+-- // Scripts Tab
+-- // Gives Scripts For Supported Games
+-- /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 local Tab = Window:MakeTab({
-	Name = "Supported",
+	Name = "Scripts",
 	Icon = "rbxassetid://8215093320",
 	PremiumOnly = false
 })
@@ -306,6 +380,13 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddButton({
+	Name = "Dex Explorer v1 (im sorry ok bro 💀)",
+	Callback = function(Value)
+        loadstring(game:HttpGet('https://gist.githubusercontent.com/DinosaurXxX/b757fe011e7e600c0873f967fe427dc2/raw/ee5324771f017073fc30e640323ac2a9b3bfc550/dark%2520dex%2520v4'))()
+	end    
+})
+
+Tab:AddButton({
 	Name = "Fling GUI",
 	Callback = function(Value)
         loadstring(game:HttpGet('https://raw.githubusercontent.com/katrina367/personal-script/main/Fling%20GUI', true))()
@@ -319,53 +400,10 @@ Tab:AddButton({
   	end    
 })
 
-
-
-local Tab = Window:MakeTab({
-	Name = "Workspace",
-	Icon = "rbxassetid://6723742952",
-	PremiumOnly = false
-})
-
-Tab:AddSlider({
-	Name = "Client Sided Gravity Change",
-	Min = 0,
-	Max = 400,
-	Default = 196,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Gravity",
-	Callback = function(bool)
-	ClientGrav = bool
-	if bool then
-		game.Workspace.Gravity = bool
-	end
-end    
-})
-
-Tab:AddButton({
-	Name = "Dex Explorer v1 (im sorry ok bro 💀)",
-	Callback = function(Value)
-        loadstring(game:HttpGet('https://gist.githubusercontent.com/DinosaurXxX/b757fe011e7e600c0873f967fe427dc2/raw/ee5324771f017073fc30e640323ac2a9b3bfc550/dark%2520dex%2520v4'))()
-	end    
-})
-
-Tab:AddButton({
-	Name = "Destroy UI",
-	Callback = function(Value)
-        game.CoreGui.Orion:Destroy()
-        game.CoreGui.Key:Destroy()
-	end    
-})
-
-Tab:AddButton({
-	Name = "FullBright",
-	Callback = function(Value)
-		game.Lighting.GlobalShadows = true
-		game.Lighting.Ambient = Color3.new(1,1,1)
-		game.Lighting.FogEnd = 1000000
-	end    
-})
+-- \/\/\/\/\/\/\/\/\/\/\/\/\/\/
+-- // Misc Tab
+-- // Extra Stuff lol
+-- /\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -445,6 +483,11 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddParagraph("Supported Games List","1. Bad Business, 2. Arsenal, 3. Pet Simulator X, 4. Scan_Test.Demo, 5. Raise a Floppa 1 & 2, 6. Mining Simulator 2, 7. Murder Mystery 2, 8. Build a Boat For Treasure, 9. Funky Friday, 10. Slap Battles, 11. Stands Awakened, 12. Anime Adventures, 13. Weapon Fighting Simulator, 14. Anime Fighters Simulator,")
+
+-- \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+-- // Character Tab
+-- // Allows You To Do Wierd Things With Your Character
+-- /\/\/\/\/\\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 local Tab = Window:MakeTab({
 	Name = "Character",
@@ -621,6 +664,10 @@ Tab:AddButton({
   	end    
 })
 
+-- \/\/\/\/\/\/\/\/\/\/\/\/\/\
+-- // Credits
+-- /\/\/\/\/\/\/\/\/\/\/\/\/\/
+
 local Tab = Window:MakeTab({
 	Name = "Credits",
 	Icon = "rbxassetid://3019710362",
@@ -637,6 +684,14 @@ Tab:AddButton({
 	Callback = function(Value)
         game:Shutdown()
   	end    
+})
+
+Tab:AddButton({
+	Name = "Destroy UI",
+	Callback = function(Value)
+        game.CoreGui.Orion:Destroy()
+        game.CoreGui.Key:Destroy()
+	end    
 })
 
 Tab:AddLabel("Anti Afk Built In")
