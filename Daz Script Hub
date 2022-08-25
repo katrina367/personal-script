@@ -1,5 +1,7 @@
--- // Welcome to Daz's Script Hub
--- // dont hate pls
+local function start()
+
+-- // Welcome to Daz's Open Source Script Hub
+-- // This Is Just a Fun Project. Dont Go Hate, I Have No Intention Of Advertising this.
 
 repeat wait() until game:WaitForChild"Players"
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -59,7 +61,7 @@ wait(3)
 -- // Orion Window
 --/\/\/\/\/\/\/\/\/\/
 
-local Window = OrionLib:MakeWindow({Name = "Project Daz", HidePremium = true, SaveConfig = false, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Project Daz", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 -- \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 -- // Workspace Tab 
@@ -190,23 +192,43 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddToggle({
-	Name = "Teleport Player Toggle",
+	Name = "Teleport Toggle",
 	Default = false,
 	Callback = function(bool)
 	if bool then
 		spawn(function()
 			while SpamTP == bool do
-                		local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-                		local pl2 = TeleportPlayer
-                		local humanoid = game.Players.LocalPlayer.Character.Humanoid
-                		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-               		 	wait(0.1)
-                		pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
+				local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local p2 = TeleportPlayer
+				p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame				
+			wait()
 			end
 		end)
 	end
 end    
 })
+
+Tab:AddToggle({
+	Name = "Bypass Teleport Toggle",
+	Default = false,
+	Callback = function(bool)
+	if bool then
+		spawn(function()
+			while SpamTP == bool do
+                local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+                local pl2 = TeleportPlayer
+                local humanoid = game.Players.LocalPlayer.Character.Humanoid
+                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                wait(0.1)
+                pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
+			wait()
+			end
+		end)
+	end
+end    
+})
+
+-- // Use if You Want
 
 --[[
 Tab:AddButton({
@@ -491,175 +513,144 @@ Tab:AddParagraph("Supported Games List","1. Bad Business, 2. Arsenal, 3. Pet Sim
 local Tab = Window:MakeTab({
 	Name = "Character",
 	Icon = "rbxassetid://7992557358",
-	PremiumOnly = false
+	PremiumOnly = true
+})
+
+local blah = game.Players.LocalPlayer.Name
+getgenv().Anims = "String"
+getgenv().Char = "String"
+
+local dropdown = Tab:AddDropdown({
+    Name = "Animations",
+    Default = "Enabled",
+    Options = {"Enabled", "Disabled"},
+    Callback = function(option)
+		getgenv().Anims = option
+		wait()
+		print(getgenv().Anims)
+    end    
 })
 
 Tab:AddButton({
-	Name = "Idle",
+	Name = "Change Animations",
 	Callback = function()
-		game.Workspace.Gravity = 196.2
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)			
+		if getgenv().Anims == "Enabled" then
+			game.Workspace[blah].Animate.Disabled = false
+		elseif getgenv().Anims == "Disabled" then
+			game.Workspace[blah].Animate.Disabled = true
+		end
+	end
+})
+
+local dropdown = Tab:AddDropdown({
+    Name = "Character Options",
+    Default = Enabled,
+    Options = {"Idle", "Swimming", "Floating", "Climbing",},
+    Callback = function(option2)
+		getgenv().Char = option2
+		wait()
+		print(getgenv().Char)
+    end    
+})
+
+
+Tab:AddButton({
+	Name = "Change Character",
+	Callback = function()
+		if getgenv().Char == "Idle" then
+			game.Workspace.Gravity = 196.2
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
 			
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Swimming",
-	Callback = function()
-		game.Workspace.Gravity = 0
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Jump Anim",
-	Callback = function()
-		game.Workspace.Gravity = 196.2
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Float",
-	Callback = function()
-		game.Workspace.Gravity = 196.2
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Fall Over",
-	Callback = function()
-		game.Workspace.Gravity = 60
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Climb Anim",
-	Callback = function()
-		game.Workspace.Gravity = 196.2
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Climbing)	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Fall with Float Anim",
-	Callback = function()
-		game.Workspace.Gravity = 60
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Flying)	
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+		elseif getgenv().Char == "Swimming" then
+			game.Workspace.Gravity = 0
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+			
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)	
+		elseif getgenv().Char == "Floating" then
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+			
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+		elseif getgenv().Char == "Climbing" then
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+			
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
+		--[[ if you want lmao
+			elseif getgenv().Char == "Falling" then
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+			
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Climbing)]]
+		end	
   	end    
 })
 
@@ -688,7 +679,7 @@ Tab:AddButton({
 Tab:AddButton({
 	Name = "Destroy UI",
 	Callback = function(Value)
-        game.CoreGui.Orion:Destroy()
+		OrionLib:Destroy()
         game.CoreGui.Key:Destroy()
 	end    
 })
@@ -696,3 +687,431 @@ Tab:AddButton({
 Tab:AddLabel("Anti Afk Built In")
 
 OrionLib:Init()
+end
+
+local Key = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Frame_2 = Instance.new("Frame")
+local GetKey = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local DestroyUI = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local CheckKey = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local UIListLayout = Instance.new("UIListLayout")
+local UICorner_4 = Instance.new("UICorner")
+local TextBoxes = Instance.new("Folder")
+local OSTime = Instance.new("TextLabel")
+local PlayerName = Instance.new("TextLabel")
+local WelcomeLabel = Instance.new("TextLabel")
+local EnterKey = Instance.new("TextBox")
+local UICorner_5 = Instance.new("UICorner")
+local PlayerImage = Instance.new("ImageLabel")
+local UICorner_6 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local Outline1 = Instance.new("UIStroke")
+local Outline2 = Instance.new("UIStroke")
+local Outline3 = Instance.new("UIStroke")
+local Outline4 = Instance.new("UIStroke")
+local Correct = Instance.new("UIStroke")
+local Indicator = Instance.new("UIStroke")
+
+Key.Name = "Key"
+Key.Parent = game:WaitForChild("CoreGui")
+
+Frame.Parent = Key
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame.Position = UDim2.new(0.21423161, 0, 0.260312945, 0)
+Frame.Size = UDim2.new(0, 653, 0, 380)
+
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame_2.BackgroundTransparency = 1.000
+Frame_2.Position = UDim2.new(0.437978566, 0, 0.565789461, 0)
+Frame_2.Size = UDim2.new(0, 318, 0, 47)
+
+GetKey.Name = "Get Key"
+GetKey.Parent = Frame_2
+GetKey.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+GetKey.Position = UDim2.new(0.667731643, 0, -0.0303030312, 0)
+GetKey.Size = UDim2.new(0, 104, 0, 32)
+GetKey.Font = Enum.Font.GothamMedium
+GetKey.Text = "Get Key"
+GetKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+GetKey.TextSize = 14.000
+GetKey.MouseButton1Click:Connect(function()
+	setclipboard("33234224324263534523")
+	EnterKey.Text = "Key Copied To ClipBoard"
+	wait(2)
+	EnterKey.Text = "Key"
+end)
+
+Outline1.Parent = GetKey
+Outline1.Enabled = false
+Outline1.Color = Color3.fromRGB(255,255,255)
+Outline1.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+UICorner.CornerRadius = UDim.new(0, 4)
+UICorner.Parent = GetKey
+
+DestroyUI.Name = "Destroy UI"
+DestroyUI.Parent = Frame_2
+DestroyUI.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+DestroyUI.Position = UDim2.new(0.660030663, 0, 0.584210575, 0)
+DestroyUI.Size = UDim2.new(0, 104, 0, 32)
+DestroyUI.Font = Enum.Font.GothamMedium
+DestroyUI.Text = "Destroy UI"
+DestroyUI.TextColor3 = Color3.fromRGB(255, 255, 255)
+DestroyUI.TextSize = 14.000
+DestroyUI.MouseButton1Click:Connect(function()
+	game.CoreGui.Key:Destroy()
+	game.CoreGui.Orion:Destroy()
+end)
+
+Outline2.Parent = DestroyUI
+Outline2.Enabled = false
+Outline2.Color = Color3.fromRGB(255,255,255)
+Outline2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+UICorner_2.CornerRadius = UDim.new(0, 4)
+UICorner_2.Parent = DestroyUI
+
+CheckKey.Name = "Check Key"
+CheckKey.Parent = Frame_2
+CheckKey.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+CheckKey.Position = UDim2.new(0, 0, 0.0151515156, 0)
+CheckKey.Size = UDim2.new(0, 104, 0, 32)
+CheckKey.Font = Enum.Font.GothamMedium
+CheckKey.Text = "Check Key"
+CheckKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+CheckKey.TextSize = 14.000
+CheckKey.MouseButton1Click:Connect(function()
+	if game.CoreGui.Key.Frame.TextBoxes["Enter Key"].Text == "33234224324263534523" then
+		EnterKey.Text = "Correct Key!"
+		EnterKey.BackgroundColor3 = Color3.fromRGB(2, 26, 2)
+		Indicator.Color = Color3.fromRGB(38, 255, 0)
+		EnterKey.TextEditable = false
+		EnterKey.ClearTextOnFocus = false
+		wait(2)
+		game.CoreGui.Key:Destroy()
+		start()
+		else
+		EnterKey.Text = "Incorrect Key! :("
+		EnterKey.BackgroundColor3 = Color3.fromRGB(66, 0, 0)
+		Indicator.Color = Color3.fromRGB(255, 0, 0)
+		EnterKey.TextEditable = false
+		EnterKey.ClearTextOnFocus = false
+		wait(2)
+		EnterKey.ClearTextOnFocus = true
+		EnterKey.TextEditable = true
+		Indicator.Color = Color3.fromRGB(20,20,20)
+		EnterKey.Text = "Key"
+		EnterKey.TextColor3 = Color3.fromRGB(255,255,255)
+		EnterKey.BackgroundColor3 = Color3.fromRGB(26,26,26)
+	end
+end)
+
+Outline3.Parent = CheckKey
+Outline3.Enabled = false
+Outline3.Color = Color3.fromRGB(255,255,255)
+Outline3.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+UICorner_3.CornerRadius = UDim.new(0, 4)
+UICorner_3.Parent = CheckKey
+
+UIListLayout.Parent = Frame_2
+UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+UIListLayout.Padding = UDim.new(0, 3)
+
+UICorner_4.CornerRadius = UDim.new(0, 22)
+UICorner_4.Parent = Frame
+
+TextBoxes.Name = "TextBoxes"
+TextBoxes.Parent = Frame
+
+OSTime.Name = "OS Time"
+OSTime.Parent = TextBoxes
+OSTime.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+OSTime.BackgroundTransparency = 1.000
+OSTime.BorderColor3 = Color3.fromRGB(42, 42, 42)
+OSTime.Position = UDim2.new(0.0245022979, 0, 0.905294299, 0)
+OSTime.Size = UDim2.new(0, 264, 0, 28)
+OSTime.Font = Enum.Font.SourceSansBold
+OSTime.Text = ""
+OSTime.TextColor3 = Color3.fromRGB(255, 255, 255)
+OSTime.TextScaled = true
+OSTime.TextSize = 14.000
+OSTime.TextWrapped = true
+
+PlayerName.Name = "PlayerName"
+PlayerName.Parent = TextBoxes
+PlayerName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PlayerName.BackgroundTransparency = 1.000
+PlayerName.Position = UDim2.new(0.450229704, 0, 0.284210533, 0)
+PlayerName.Size = UDim2.new(0, 294, 0, 50)
+PlayerName.Font = Enum.Font.SourceSansBold
+PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayerName.TextSize = 38.000
+PlayerName.TextScaled = true
+
+WelcomeLabel.Name = "Welcome Label"
+WelcomeLabel.Parent = TextBoxes
+WelcomeLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+WelcomeLabel.BackgroundTransparency = 1.000
+WelcomeLabel.Position = UDim2.new(0.57, 0,0.211, 0)
+WelcomeLabel.Size = UDim2.new(0, 137,0, 44)
+WelcomeLabel.Font = Enum.Font.SourceSansBold
+WelcomeLabel.Text = "Welcome"
+WelcomeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+WelcomeLabel.TextSize = 38.000
+
+local red = Color3.fromRGB(255, 0, 0)
+local green = Color3.fromRGB(55, 255, 0)
+
+EnterKey.Name = "Enter Key"
+EnterKey.Parent = TextBoxes
+EnterKey.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+EnterKey.BorderColor3 = Color3.fromRGB(36, 17, 255)
+EnterKey.Position = UDim2.new(0.437978566, 0, 0.434210539, 0)
+EnterKey.Size = UDim2.new(0, 313, 0, 50)
+EnterKey.PlaceholderColor3 = Color3.fromRGB(178, 178, 178)
+EnterKey.Text = "Key"
+EnterKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+EnterKey.TextSize = 18.000
+EnterKey.MouseEnter:Connect(function()
+		if Indicator.Color == red then		print('failed 💀')
+	else 
+		Indicator.Color = Color3.fromRGB(255,255,255)
+	end	
+end)
+EnterKey.MouseLeave:Connect(function()
+	if Indicator.Color == Color3.fromRGB(255, 0, 0) then
+		print('success :D')
+	else 
+		Indicator.Color = Color3.fromRGB(20,20,20)
+	end
+end)
+
+Indicator.Parent = EnterKey
+Indicator.Enabled = true
+Indicator.Color = Color3.fromRGB(20, 20, 20)
+Indicator.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+UICorner_5.CornerRadius = UDim.new(0, 4)
+UICorner_5.Parent = EnterKey
+
+PlayerImage.Name = "PlayerImage"
+PlayerImage.Parent = TextBoxes
+PlayerImage.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+PlayerImage.BorderColor3 = Color3.fromRGB(255, 255, 255)
+PlayerImage.Position = UDim2.new(0.0719754994, 0, 0.231578946, 0)
+PlayerImage.Size = UDim2.new(0, 205, 0, 201)
+PlayerImage.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+
+UICorner_6.CornerRadius = UDim.new(0, 360)
+UICorner_6.Parent = PlayerImage
+
+TextLabel.Parent = TextBoxes
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Position = UDim2.new(0.0199081171, 0, 0, 0)
+TextLabel.Size = UDim2.new(0, 193, 0, 39)
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = "Daz's Script Library"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+	-- Scripts:
+local function JSMPCLW_fake_script() -- GetKey.LocalScript 
+	local script = Instance.new('LocalScript', GetKey)
+
+	script.Parent.MouseEnter:Connect(function()
+		script.Parent.UIStroke.Enabled = true
+	end)
+	script.Parent.MouseLeave:Connect(function()
+		script.Parent.UIStroke.Enabled = false
+	end)
+end
+coroutine.wrap(JSMPCLW_fake_script)()
+local function RMEKGD_fake_script() -- DestroyUI.LocalScript 
+	local script = Instance.new('LocalScript', DestroyUI)
+
+	local player = game.Players.LocalPlayer
+
+	script.Parent.MouseButton1Click:Connect(function()
+		game.CoreGui.Key.Frame.Visible = false
+	end)
+end
+coroutine.wrap(RMEKGD_fake_script)()
+local function ORDW_fake_script() -- DestroyUI.LocalScript 
+	local script = Instance.new('LocalScript', DestroyUI)
+
+	script.Parent.MouseEnter:Connect(function()
+		script.Parent.UIStroke.Enabled = true
+	end)
+	script.Parent.MouseLeave:Connect(function()
+		script.Parent.UIStroke.Enabled = false
+	end)
+end
+coroutine.wrap(ORDW_fake_script)()
+local function BCFEJWQ_fake_script() -- CheckKey.LocalScript 
+	local script = Instance.new('LocalScript', CheckKey)
+
+	script.Parent.MouseEnter:Connect(function()
+		script.Parent.UIStroke.Enabled = true
+	end)
+	script.Parent.MouseLeave:Connect(function()
+		script.Parent.UIStroke.Enabled = false
+	end)
+end
+coroutine.wrap(BCFEJWQ_fake_script)()
+local function TKHB_fake_script() -- Frame.Dragify 
+	local script = Instance.new('LocalScript', Frame)
+
+	local UIS = game:GetService("UserInputService")
+	function dragify(Frame)
+		dragToggle = nil
+		dragSpeed = 0.15
+		dragInput = nil
+		dragStart = nil
+		dragPos = nil
+		function updateInput(input)
+			Delta = input.Position - dragStart
+			Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+			game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.15), {Position = Position}):Play()
+		end
+		Frame.InputBegan:Connect(function(input)
+			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+				dragToggle = true
+				dragStart = input.Position
+				startPos = Frame.Position
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragToggle = false
+					end
+				end)
+			end
+		end)
+		Frame.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+		game:GetService("UserInputService").InputChanged:Connect(function(input)
+			if input == dragInput and dragToggle then
+				updateInput(input)
+			end
+		end)
+	end
+	dragify(script.Parent)
+
+end
+coroutine.wrap(TKHB_fake_script)()
+local function BTVKH_fake_script() -- OSTime.Script 
+	local script = Instance.new('Script', OSTime)
+
+	local timestamp = 906000490
+
+	local function formatTime(t)
+		local t = t or tick()
+
+		local hours = math.floor(t/3600) % 24
+		local mins = math.floor(t/60) % 60
+
+		if mins <= 9 then
+			mins = "0"..mins
+		end
+		script.Parent.Text = hours..":"..mins
+	end
+
+	while true do
+		formatTime()
+		wait(1)
+	end
+end
+coroutine.wrap(BTVKH_fake_script)()
+local function OEMAVYJ_fake_script() -- TextBoxes.LocalScript 
+	local script = Instance.new('LocalScript', TextBoxes)
+
+	local frame = script.Parent
+
+
+
+	local player = game.Players.LocalPlayer
+
+
+
+	local userId = player.UserId
+
+	local thumbType = Enum.ThumbnailType.HeadShot
+
+	local thumbSize = Enum.ThumbnailSize.Size420x420
+
+	local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+
+
+
+
+
+	frame.PlayerImage.Image = content
+
+	frame.PlayerName.Text = player.DisplayName
+end
+
+coroutine.wrap(OEMAVYJ_fake_script)()
+coroutine.wrap(YAIDUV_fake_script)()
+
+--[[
+Tab:AddButton({
+	Name = "Jump Anim",
+	Callback = function()
+		game.Workspace.Gravity = 196.2
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		
+		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)	
+  	end    
+})
+
+
+Tab:AddButton({
+	Name = "Fall with Float Anim",
+	Callback = function()
+		game.Workspace.Gravity = 60
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+		game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		
+		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Flying)	
+  	end    
+})
+]]
